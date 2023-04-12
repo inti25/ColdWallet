@@ -1,34 +1,20 @@
 import { QMainWindow, QWidget, QLabel, FlexLayout, QPushButton, QIcon } from '@nodegui/nodegui';
 import logo from '../assets/logox200.png';
 import cbNetworks from "./components/cbNetworkList";
-
-const rootScope = {};
+import {Router} from "./Router";
+import {Main} from "./screens/Main";
+import {NewWallet} from "./screens/NewWallet";
 
 const win = new QMainWindow();
-win.setWindowTitle("inti's cold wallet");
+win.setWindowTitle("My Wallet");
 const centralWidget = new QWidget();
-centralWidget.setObjectName("myroot");
-const rootLayout = new FlexLayout();
-centralWidget.setLayout(rootLayout);
+centralWidget.setObjectName("rootView");
 
-const label = new QLabel();
-label.setObjectName("mylabel");
-label.setText("Hello");
+const route = new Router(centralWidget);
+route.addRoute('main', new Main());
+route.addRoute('newWallet', new NewWallet());
+route.change('main');
 
-const button = new QPushButton();
-button.setIcon(new QIcon(logo));
-
-const label2 = new QLabel();
-label2.setText("World");
-label2.setInlineStyle(`
-  color: red;
-`);
-
-rootLayout.addWidget(cbNetworks);
-
-rootLayout.addWidget(label);
-rootLayout.addWidget(button);
-rootLayout.addWidget(label2);
 win.setCentralWidget(centralWidget);
 win.setStyleSheet(
   `

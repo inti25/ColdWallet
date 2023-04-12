@@ -3,4 +3,4 @@ dist/
 *.log
 .vscode
 .idea
-deploy
+build
