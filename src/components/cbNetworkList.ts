@@ -2,6 +2,7 @@ import {QIcon, QPixmap} from "@nodegui/nodegui";
 
 const { QComboBox } = require("@nodegui/nodegui");
 import logo from '../../assets/logox200.png';
+import {ethers} from "ethers";
 const axios = require('axios');
 
 async function getPixmap(url: any) {
@@ -31,7 +32,11 @@ async function init() {
     console.log('currentTextChanged: ' + text);
   });
   cbNetworks.addEventListener('currentIndexChanged', (index: string) => {
-    console.log('currentIndexChanged: ' + index);
+    // console.log('currentIndexChanged: ' + index);
+    // const wallet = ethers.Wallet.createRandom();
+    // console.log('address:', wallet.address)
+    // console.log('mnemonic:', wallet?.mnemonic?.phrase)
+    // console.log('privateKey:', wallet.privateKey)
   });
 }
 init();
