@@ -23,6 +23,8 @@ export class Main extends BaseScreen {
 
     layout.addWidget(label);
     layout.addWidget(generateButton);
+    // @ts-ignore
+    console.log(window.user);
   }
 
 }
