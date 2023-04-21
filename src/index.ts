@@ -4,7 +4,7 @@ import {Main} from "./screens/Main";
 
 const win = new QMainWindow();
 win.setWindowTitle("My Wallet");
-
+win.setFixedSize(300, 400);
 const route = new Router(win);
 route.change(Main.name);
 
