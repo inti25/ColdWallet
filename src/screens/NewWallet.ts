@@ -4,6 +4,8 @@ import {BaseScreen} from "./BaseScreen";
 import wallet from '../../assets/wallet.png';
 import {ethers} from "ethers";
 import {saveFile} from "../utils/fileUtil";
+import {User} from "../model/User";
+import {ConfirmSeedAndPassword} from "./ConfirmSeedAndPassword";
 
 export class NewWallet extends BaseScreen {
 
@@ -28,15 +30,18 @@ export class NewWallet extends BaseScreen {
     newBtn.setObjectName('PrimaryButton');
     newBtn.addEventListener('clicked', () => {
       // this.changeView(Main.name)
-      const wallet = ethers.Wallet.createRandom();
-      saveFile({mnemonic: wallet.mnemonic?.phrase}, 'wallet');
+      // const wallet = ethers.Wallet.createRandom();
+      // // saveFile({mnemonic: wallet.mnemonic?.phrase}, 'wallet');
+      // const user = new User(wallet.mnemonic?.phrase || '', [], (global as any).unlockCode);
+      // user.save()
+      this.changeView(ConfirmSeedAndPassword.name)
     });
 
     const importBtn = new QPushButton();
     importBtn.setText('Import an existing wallet');
     importBtn.setObjectName('SecondaryButton');
     importBtn.addEventListener('clicked', () => {
-      this.changeView(Main.name)
+      this.changeView(ConfirmSeedAndPassword.name)
     });
 
     layout.addWidget(label);

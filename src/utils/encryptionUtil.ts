@@ -1,10 +1,9 @@
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 
 const rounds = 10;
 const PASSWORD = 'jGSXhcrHkWVNQHr8exdZ';
 const IV_LENGTH = 16; // For AES, this is always 16
-const ENCRYPTION_KEY = crypto.scryptSync(PASSWORD, 'MyWallet', 32);
 
 export async function hashPassword(password: string) {
   const salt = bcrypt.genSaltSync(rounds);
@@ -15,8 +14,8 @@ export async function comparePassword(rawPassword: string, passwordHash: string)
   return await bcrypt.compare(rawPassword, passwordHash);
 }
 
-
-export function encrypt(text: string) {
+export function encrypt(text: string, password: string) {
+  const ENCRYPTION_KEY = crypto.scryptSync(PASSWORD, password, 32);
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
   let encrypted = cipher.update(text);
@@ -24,7 +23,8 @@ export function encrypt(text: string) {
   return iv.toString('hex') + ':' + encrypted.toString('hex');
 }
 
-export function decrypt(text: string) {
+export function decrypt(text: string, password: string) {
+  const ENCRYPTION_KEY = crypto.scryptSync(PASSWORD, password, 32);
   const textParts = text.split(':');
   // @ts-ignore
   const iv = Buffer.from(textParts.shift(), 'hex');

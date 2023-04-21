@@ -2,6 +2,7 @@ import {IViewChange} from "./interfaces/IScreen";
 import {QMainWindow} from "@nodegui/nodegui";
 import {Main} from "./screens/Main";
 import {NewWallet} from "./screens/NewWallet";
+import {ConfirmSeedAndPassword} from "./screens/ConfirmSeedAndPassword";
 
 export class Router implements IViewChange{
   private route: any;
@@ -16,6 +17,7 @@ export class Router implements IViewChange{
     this.route = {};
     this.route[Main.name] = Main;
     this.route[NewWallet.name] = NewWallet;
+    this.route[ConfirmSeedAndPassword.name] = ConfirmSeedAndPassword;
   }
 
   change(name: string) {

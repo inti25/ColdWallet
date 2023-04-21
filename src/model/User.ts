@@ -15,12 +15,13 @@ export class User {
 
   async save() {
     const data: any = {};
-    data.wallet = encrypt(this.wallet);
+    const code = (global as any).unlockCode;
     if (this.pwd.indexOf('{ENC}') === -1){
-      data.password = await hashPassword(this.pwd);
+      data.password = '{ENC}' + await hashPassword(this.pwd);
     }
+    data.wallet = encrypt(this.wallet, code);
     data.accounts = this.accounts.map(acc => {
-      acc.privateKey = encrypt(acc.privateKey);
+      acc.privateKey = encrypt(acc.privateKey, code);
       return acc;
     })
     await saveFile(data, User.name);
@@ -28,13 +29,14 @@ export class User {
 
   async load(): Promise<User | null> {
     try {
+      const code = (global as any).unlockCode;
       const data = await readFile(User.name);
       return new User(
-        decrypt(data.wallet),
+        decrypt(data.wallet, code),
         data.accounts.map((acc: any) => {
-          return new Account(acc.name, acc.type, acc.index, decrypt(acc.privateKey));
+          return new Account(acc.name, acc.type, acc.index, decrypt(acc.privateKey, code));
         }),
-        data.pwd
+        data.password
       )
     } catch (e) {
       console.error(e);

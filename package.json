@@ -13,12 +13,14 @@
   },
   "dependencies": {
     "@nodegui/nodegui": "^0.57.1",
+    "bcryptjs": "^2.4.3",
     "bufferutil": "^4.0.7",
     "ethers": "^6.3.0",
     "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {
     "@nodegui/packer": "^1.5.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^18.7.14",
     "clean-webpack-plugin": "^4.0.0",
     "file-loader": "^6.2.0",
