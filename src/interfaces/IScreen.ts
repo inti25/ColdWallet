@@ -1,8 +1,9 @@
 import {QWidget} from "@nodegui/nodegui/dist/lib/QtWidgets/QWidget";
+import {QMainWindow} from "@nodegui/nodegui";
 
 export interface IScreen {
   setViewChangeListener: (listener: IViewChange) => void;
-  attachToView: (rootView: QWidget) => void
+  attachToView: (rootView: QMainWindow) => void
   initLayout: () => void;
   changeView: (viewName: string) => void
   delete: () => void;

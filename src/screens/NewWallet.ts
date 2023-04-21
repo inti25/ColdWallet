@@ -1,17 +1,21 @@
 import {IScreen, IViewChange} from "../interfaces/IScreen";
 import {QWidget} from "@nodegui/nodegui/dist/lib/QtWidgets/QWidget";
-import {FlexLayout, QLabel, QPushButton} from "@nodegui/nodegui";
+import {FlexLayout, QLabel, QMainWindow, QPushButton} from "@nodegui/nodegui";
+import {Main} from "./Main";
 
 export class NewWallet implements IScreen {
-  private readonly root: FlexLayout;
+  private readonly root: QWidget;
   private listener: IViewChange | undefined;
 
   constructor() {
-    this.root = new FlexLayout();
+    this.root = new QWidget();
     this.root.setObjectName('NewWallet');
+    this.initLayout();
   }
 
   initLayout() {
+    const layout = new FlexLayout();
+    this.root.setLayout(layout);
     const label = new QLabel();
     label.setText("NewWallet");
 
@@ -21,16 +25,15 @@ export class NewWallet implements IScreen {
     generateButton.setObjectName('generateButton');
 
     generateButton.addEventListener('clicked', () => {
-      this.changeView('main')
+      this.changeView(Main.name)
     });
 
-    this.root.addWidget(label);
-    this.root.addWidget(generateButton);
+    layout.addWidget(label);
+    layout.addWidget(generateButton);
   }
 
-  attachToView(rootView: QWidget): void {
-    rootView.setLayout(this.root)
-    this.initLayout();
+  attachToView(rootView: QMainWindow): void {
+    rootView.setCentralWidget(this.root);
   }
 
   changeView(viewName: string) {
@@ -43,7 +46,7 @@ export class NewWallet implements IScreen {
 
   delete(): void {
     for (let c of this.root.children()) {
-        c.delete();
+      c.delete();
     }
     this.root.delete();
   }
