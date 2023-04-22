@@ -1,8 +1,7 @@
 import {FlexLayout, QLabel, QPushButton} from "@nodegui/nodegui";
 import {NewWallet} from "./NewWallet";
 import {BaseScreen} from "./BaseScreen";
-import {loadNetworkList} from "../model/Network";
-import cbNetworks from "../components/cbNetworkList";
+import {NetworksComboBox} from "../components/cbNetworkList";
 
 export class Main extends BaseScreen {
 
@@ -23,11 +22,16 @@ export class Main extends BaseScreen {
       this.changeView(NewWallet.name)
     });
 
-    layout.addWidget(cbNetworks);
+    const cb = new NetworksComboBox();
+    layout.addWidget(cb.getView());
     layout.addWidget(label);
     layout.addWidget(generateButton);
-    loadNetworkList();
 
+    this.root.setStyleSheet(`
+        #Main{
+          background-color: #009688;
+          flex-direction: 'column';
+        }
+    `)
   }
-
 }

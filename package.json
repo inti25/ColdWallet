@@ -16,6 +16,7 @@
     "bcryptjs": "^2.4.3",
     "bufferutil": "^4.0.7",
     "ethers": "^6.3.0",
+    "generate-avatar": "^1.4.10",
     "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {

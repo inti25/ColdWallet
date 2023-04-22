@@ -1,3 +1,5 @@
 {
+  "appName": "appName",
+  "name": "name",
   "distPath": ".\\dist"
 }

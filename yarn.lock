@@ -160,6 +160,11 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.7.14.tgz"
   "version" "18.7.14"
 
+"@types/node@^13.13.1":
+  "integrity" "sha512-s3nugnZumCC//n4moGGe6tkNMyYEdaDBitVjwPxXmR5lnMG5dHePinH2EdxkG3Rh1ghFHHixAG4NJhpJW1rthQ=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-13.13.52.tgz"
+  "version" "13.13.52"
+
 "@webassemblyjs/ast@1.11.1":
   "integrity" "sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw=="
   "resolved" "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.11.1.tgz"
@@ -871,6 +876,13 @@
     "lodash.pad" "^4.1.0"
     "lodash.padend" "^4.1.0"
     "lodash.padstart" "^4.1.0"
+
+"generate-avatar@^1.4.10":
+  "integrity" "sha512-HlVz3ZXTqz7F0sb3OoW8591SojdVtyyuqX6kCi/AnmEXH16MLmPRiChv2680E9WF39zl5nlHMrgZxlmqnTrzkQ=="
+  "resolved" "https://registry.npmjs.org/generate-avatar/-/generate-avatar-1.4.10.tgz"
+  "version" "1.4.10"
+  dependencies:
+    "@types/node" "^13.13.1"
 
 "glob-to-regexp@^0.4.1":
   "integrity" "sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw=="

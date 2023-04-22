@@ -1,39 +1,42 @@
-import {QIcon, QPixmap} from "@nodegui/nodegui";
-import {loadNetworkList} from "../model/Network";
+import {QIcon} from "@nodegui/nodegui";
+import {loadNetworkList, Network} from "../model/Network";
+import {getPixmap} from "../utils/imageUtil";
 
 const { QComboBox } = require("@nodegui/nodegui");
-const axios = require('axios');
 
-async function getPixmap(url: any) {
-  const { data } = await axios.get(url, { responseType: 'arraybuffer' });
-  const pixmap = new QPixmap();
-  pixmap.loadFromData(data);
-  return pixmap;
-}
-const cbNetworks = new QComboBox();
+export class NetworksComboBox {
+  private comboBox = new QComboBox();
+  private networks: Network[] = [];
 
-async function init() {
-  const networks = await loadNetworkList();
-  cbNetworks.setObjectName("cbNetworks");
-
-  for (const nw of networks) {
-    const img = await getPixmap(nw.icon);
-    cbNetworks.addItem(new QIcon(img), nw.name || '');
-
+  constructor() {
+    this.comboBox.setObjectName("cbNetworks");
+    this.loadData();
   }
-  cbNetworks.setStyleSheet(`
-  #cbNetworks {
-    font-size: 14px;
-    font-weight: bold;
-    height: 40px;
-    width: '100%';
+
+  getView() {
+    return this.comboBox
   }
-  `)
-  cbNetworks.addEventListener('currentTextChanged', (text: string) => {
-    console.log('currentTextChanged: ' + text);
-  });
-  cbNetworks.addEventListener('currentIndexChanged', (index: string) => {
-  });
+
+  async loadData() {
+    this.networks = await loadNetworkList();
+    this.comboBox.setStyleSheet(`
+      #cbNetworks {
+        font-size: 14px;
+        font-weight: bold;
+        height: 40px;
+        width: '100%';
+      }
+    `)
+
+    for (const nw of this.networks) {
+      const img = await getPixmap(nw.icon);
+      this.comboBox.addItem(new QIcon(img), nw.name || '');
+
+    }
+    this.comboBox.addEventListener('currentTextChanged', (text: string) => {
+      console.log('currentTextChanged: ' + text);
+    });
+    this.comboBox.addEventListener('currentIndexChanged', (index: string) => {
+    });
+  }
 }
-init();
-export default cbNetworks
