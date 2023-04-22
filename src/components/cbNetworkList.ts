@@ -1,8 +1,7 @@
 import {QIcon, QPixmap} from "@nodegui/nodegui";
+import {loadNetworkList} from "../model/Network";
 
 const { QComboBox } = require("@nodegui/nodegui");
-import logo from '../../assets/logox200.png';
-import {ethers} from "ethers";
 const axios = require('axios');
 
 async function getPixmap(url: any) {
@@ -14,17 +13,19 @@ async function getPixmap(url: any) {
 const cbNetworks = new QComboBox();
 
 async function init() {
-  const img = await getPixmap('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/240px-Sign-check-icon.png');
+  const networks = await loadNetworkList();
   cbNetworks.setObjectName("cbNetworks");
-  cbNetworks.addItem(undefined, 'comboBox item 0');
-  cbNetworks.addItem(new QIcon(img), 'comboBox item 1');
-  cbNetworks.addItem(undefined, 'comboBox item 2');
-  cbNetworks.addItem(undefined, 'comboBox item 3');
+
+  for (const nw of networks) {
+    const img = await getPixmap(nw.icon);
+    cbNetworks.addItem(new QIcon(img), nw.name || '');
+
+  }
   cbNetworks.setStyleSheet(`
   #cbNetworks {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    height: 50px;
+    height: 40px;
     width: '100%';
   }
   `)
@@ -32,11 +33,6 @@ async function init() {
     console.log('currentTextChanged: ' + text);
   });
   cbNetworks.addEventListener('currentIndexChanged', (index: string) => {
-    // console.log('currentIndexChanged: ' + index);
-    // const wallet = ethers.Wallet.createRandom();
-    // console.log('address:', wallet.address)
-    // console.log('mnemonic:', wallet?.mnemonic?.phrase)
-    // console.log('privateKey:', wallet.privateKey)
   });
 }
 init();

@@ -1,4 +1,4 @@
-import {decrypt, encrypt, hashPassword} from "../utils/encryptionUtil";
+import {comparePassword, decrypt, encrypt, hashPassword} from "../utils/encryptionUtil";
 import {readFile, saveFile} from "../utils/fileUtil";
 import {Account} from "./Account";
 import {getPassword} from "../utils/globalUtil";
@@ -43,5 +43,14 @@ export async function loadUser(): Promise<User | null> {
   } catch (e) {
     console.error(e);
     return null;
+  }
+}
+
+export async function checkPassword(password: string): Promise<boolean> {
+  try {
+    const data = await readFile(User.name);
+    return await comparePassword(password, data.password.replace('{ENC}', ''));
+  } catch (e) {
+    return false;
   }
 }

@@ -4,6 +4,7 @@ import {Main} from "./screens/Main";
 import {NewWallet} from "./screens/NewWallet";
 import {ConfirmSeedAndPassword} from "./screens/ConfirmSeedAndPassword";
 import {BaseScreen} from "./screens/BaseScreen";
+import {Unlock} from "./screens/Unlock";
 
 export class Router implements IViewChange{
   private route: any;
@@ -18,6 +19,7 @@ export class Router implements IViewChange{
   init() {
     this.route = {};
     this.route[Main.name] = Main;
+    this.route[Unlock.name] = Unlock;
     this.route[NewWallet.name] = NewWallet;
     this.route[ConfirmSeedAndPassword.name] = ConfirmSeedAndPassword;
   }

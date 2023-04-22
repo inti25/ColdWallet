@@ -1,6 +1,8 @@
 import {FlexLayout, QLabel, QPushButton} from "@nodegui/nodegui";
 import {NewWallet} from "./NewWallet";
 import {BaseScreen} from "./BaseScreen";
+import {loadNetworkList} from "../model/Network";
+import cbNetworks from "../components/cbNetworkList";
 
 export class Main extends BaseScreen {
 
@@ -21,8 +23,11 @@ export class Main extends BaseScreen {
       this.changeView(NewWallet.name)
     });
 
+    layout.addWidget(cbNetworks);
     layout.addWidget(label);
     layout.addWidget(generateButton);
+    loadNetworkList();
+
   }
 
 }

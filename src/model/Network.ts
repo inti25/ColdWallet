@@ -1,15 +1,15 @@
-export class Network {
-  id: number;
-  name: string;
-  nativeSymbol: string;
-  rpc: string;
-  blockExplorers: string;
+import {readFile} from "../utils/fileUtil";
 
-  constructor(id: number, name: string, nativeSymbol: string, rpc: string, blockExplorers: string) {
-    this.id = id;
-    this.name = name;
-    this.nativeSymbol = nativeSymbol;
-    this.rpc = rpc;
-    this.blockExplorers = blockExplorers;
-  }
+export class Network {
+  id?: number;
+  name?: string;
+  icon?: string;
+  nativeSymbol?: string;
+  rpc?: string;
+  blockExplorers?: string;
+}
+
+export async function loadNetworkList() {
+  const data = await readFile(Network.name);
+  return JSON.parse(JSON.stringify(data)) as Network[];
 }

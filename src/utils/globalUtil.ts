@@ -8,7 +8,7 @@ export function setUser(user: User) {
 }
 
 export function getPassword(): string {
-    return String((global as any).unlockCode);
+    return (global as any).unlockCode;
 }
 
 export function getUser(): User {

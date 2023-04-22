@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Ethereum Mainnet",
+    "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    "nativeSymbol": "ETH",
+    "rpc": "https://mainnet.infura.io/v3/",
+    "blockExplorers": "https://etherscan.io"
+  },
+  {
+    "id": 56,
+    "name": "Binance Smart Chain Mainnet",
+    "icon": "https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png",
+    "nativeSymbol": "BNB",
+    "rpc": "https://bsc-dataseed.binance.org",
+    "blockExplorers": "https://bscscan.com"
+  },
+  {
+    "id": 42161,
+    "name": "Arbitrum One",
+    "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    "nativeSymbol": "ETH",
+    "rpc": "https://arb1.arbitrum.io/rpc",
+    "blockExplorers": "https://arbiscan.io"
+  }
+]
