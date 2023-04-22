@@ -3,18 +3,15 @@ import {Router} from "./Router";
 import {Main} from "./screens/Main";
 import {User} from "./model/User";
 import {NewWallet} from "./screens/NewWallet";
+import {fileExists} from "./utils/fileUtil";
 
 async function main() {
-
-  (global as any).unlockCode = '123456a@';
-  const user = new User('', [], '');
-  (global as any).user = await user.load()
-
+  const isData = fileExists(User.name);
   const win = new QMainWindow();
   win.setWindowTitle("My Wallet");
   win.setFixedSize(300, 400);
   const route = new Router(win);
-  if ((global as any).user) {
+  if (isData) {
     route.change(Main.name);
   } else {
     route.change(NewWallet.name);

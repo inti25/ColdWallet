@@ -3,10 +3,12 @@ import {QMainWindow} from "@nodegui/nodegui";
 import {Main} from "./screens/Main";
 import {NewWallet} from "./screens/NewWallet";
 import {ConfirmSeedAndPassword} from "./screens/ConfirmSeedAndPassword";
+import {BaseScreen} from "./screens/BaseScreen";
 
 export class Router implements IViewChange{
   private route: any;
   private readonly rootLayout: QMainWindow;
+  private currentPage: BaseScreen | undefined;
 
   constructor(rootLayout: QMainWindow) {
     this.rootLayout = rootLayout;
@@ -20,17 +22,21 @@ export class Router implements IViewChange{
     this.route[ConfirmSeedAndPassword.name] = ConfirmSeedAndPassword;
   }
 
-  change(name: string) {
+  change(name: string, props?: any) {
     const screen = this.route[name];
     if (screen) {
-      const r = new screen();
+      const r = new screen(props);
       r.attachToView(this.rootLayout)
       r.setViewChangeListener(this)
+      if (this.currentPage) {
+        this.currentPage.delete();
+      }
+      this.currentPage = r;
     }
   }
 
-  onChange(viewName: string): void {
-    this.change(viewName);
+  onChange(viewName: string, props?: any): void {
+    this.change(viewName, props);
   }
 
 }

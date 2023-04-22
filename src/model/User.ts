@@ -1,6 +1,7 @@
 import {decrypt, encrypt, hashPassword} from "../utils/encryptionUtil";
 import {readFile, saveFile} from "../utils/fileUtil";
 import {Account} from "./Account";
+import {getPassword} from "../utils/globalUtil";
 
 export class User {
   wallet: string;
@@ -15,7 +16,7 @@ export class User {
 
   async save() {
     const data: any = {};
-    const code = (global as any).unlockCode;
+    const code = getPassword();
     if (this.pwd.indexOf('{ENC}') === -1){
       data.password = '{ENC}' + await hashPassword(this.pwd);
     }
@@ -26,21 +27,21 @@ export class User {
     })
     await saveFile(data, User.name);
   }
+}
 
-  async load(): Promise<User | null> {
-    try {
-      const code = (global as any).unlockCode;
-      const data = await readFile(User.name);
-      return new User(
+export async function loadUser(): Promise<User | null> {
+  try {
+    const code = getPassword();
+    const data = await readFile(User.name);
+    return new User(
         decrypt(data.wallet, code),
         data.accounts.map((acc: any) => {
           return new Account(acc.name, acc.type, acc.index, decrypt(acc.privateKey, code));
         }),
         data.password
-      )
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
+    )
+  } catch (e) {
+    console.error(e);
+    return null;
   }
 }

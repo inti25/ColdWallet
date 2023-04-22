@@ -1,10 +1,6 @@
 import {FlexLayout, QLabel, QPixmap, QPushButton} from "@nodegui/nodegui";
-import {Main} from "./Main";
 import {BaseScreen} from "./BaseScreen";
 import wallet from '../../assets/wallet.png';
-import {ethers} from "ethers";
-import {saveFile} from "../utils/fileUtil";
-import {User} from "../model/User";
 import {ConfirmSeedAndPassword} from "./ConfirmSeedAndPassword";
 
 export class NewWallet extends BaseScreen {
@@ -34,14 +30,14 @@ export class NewWallet extends BaseScreen {
       // // saveFile({mnemonic: wallet.mnemonic?.phrase}, 'wallet');
       // const user = new User(wallet.mnemonic?.phrase || '', [], (global as any).unlockCode);
       // user.save()
-      this.changeView(ConfirmSeedAndPassword.name)
+      this.changeView(ConfirmSeedAndPassword.name, {newWallet: true})
     });
 
     const importBtn = new QPushButton();
     importBtn.setText('Import an existing wallet');
     importBtn.setObjectName('SecondaryButton');
     importBtn.addEventListener('clicked', () => {
-      this.changeView(ConfirmSeedAndPassword.name)
+      this.changeView(ConfirmSeedAndPassword.name, {newWallet: false})
     });
 
     layout.addWidget(label);

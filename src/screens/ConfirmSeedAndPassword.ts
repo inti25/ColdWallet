@@ -1,10 +1,17 @@
 import {BaseScreen} from "./BaseScreen";
 import {EchoMode, FlexLayout, QLabel, QLineEdit, QPushButton, QTextEdit} from "@nodegui/nodegui";
+import {ethers} from "ethers";
+import {showMessageBox} from "../utils/messageUtil";
+import {getAccount} from "../utils/walletUtil";
+import {Account, AccountType} from "../model/Account";
+import {User} from "../model/User";
+import {setPassword, setUser} from "../utils/globalUtil";
+import {Main} from "./Main";
 
 export class ConfirmSeedAndPassword extends BaseScreen {
 
-  constructor() {
-    super(ConfirmSeedAndPassword.name);
+  constructor(props: any) {
+    super(ConfirmSeedAndPassword.name, props);
   }
 
   initLayout(): void {
@@ -12,12 +19,17 @@ export class ConfirmSeedAndPassword extends BaseScreen {
     this.root.setLayout(layout);
 
     const label = new QLabel();
-    label.setText("Word Seed:");
+    label.setText("Secret Recovery Phrase:");
     label.setObjectName('lbl')
     const wordSeed = new QTextEdit();
+    wordSeed.setObjectName('wordSeed');
+    if (this.props?.newWallet) {
+      const wallet = ethers.Wallet.createRandom();
+      wordSeed.setText(wallet.mnemonic?.phrase || '');
+    }
 
     const lblPassword = new QLabel();
-    lblPassword.setText("Password:");
+    lblPassword.setText("New Password:");
     lblPassword.setObjectName('lbl')
     const password = new QLineEdit();
     password.setEchoMode(EchoMode.Password);
@@ -32,7 +44,27 @@ export class ConfirmSeedAndPassword extends BaseScreen {
     confirmBtn.setText('Confirm');
     confirmBtn.setObjectName('PrimaryButton');
     confirmBtn.addEventListener('clicked', () => {
-      // this.changeView(ConfirmSeedAndPassword.name)
+      if (wordSeed.toPlainText().trim() === '') {
+        showMessageBox('The value for the Secret Recovery Phrase field is missing!')
+        return;
+      }
+      if (password.text().trim() === '') {
+        showMessageBox('The value for the New Password field is missing!')
+        return;
+      }
+      if (password2.text().trim() === '') {
+        showMessageBox('The value for the Confirm Password field is missing. Type the same value entered for the New Password field!')
+        return;
+      }
+      if (password.text() !== password2.text()) {
+        showMessageBox('The values for the New Password and Confirm Password fields do not match. Enter the desired password in both fields!')
+        return;
+      }
+      this.createWallet(wordSeed.toPlainText(), password.text()).then((isSuccess) => {
+        if (isSuccess) {
+          this.changeView(Main.name);
+        }
+      });
     });
     confirmBtn.setInlineStyle(`
       margin-top: 10px;
@@ -58,7 +90,28 @@ export class ConfirmSeedAndPassword extends BaseScreen {
           font-weight: 600;
           color: #fff;
         }
+        #wordSeed {
+          font-size: 14px;
+          font-weight: 450;
+        }
     `)
+  }
+
+  async createWallet(phrase: string, password: string): Promise<boolean> {
+    try {
+      const wallet = getAccount(phrase, 0);
+      const accs: Account[] = [];
+      accs.push(new Account('Account 1', AccountType.INDEX, 0, wallet.privateKey))
+      setPassword(password);
+      let user = new User(phrase, accs, password);
+      await user.save();
+      setUser(user);
+      return true;
+    } catch (e) {
+      console.error(e);
+      showMessageBox('Invalid Secret Recovery Phrase!');
+      return false;
+    }
   }
 
 }

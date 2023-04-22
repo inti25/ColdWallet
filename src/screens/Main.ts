@@ -23,7 +23,6 @@ export class Main extends BaseScreen {
 
     layout.addWidget(label);
     layout.addWidget(generateButton);
-    console.log((global as any).user);
   }
 
 }

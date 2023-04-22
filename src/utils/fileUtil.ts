@@ -17,9 +17,9 @@ export async function readFile(filename: string) {
   return JSON.parse(content);
 }
 
-async function fileExists(path: string) {
+export function fileExists(filename: string) {
   try {
-    fs.accessSync(path);
+    fs.accessSync("data/" + filename + ".json");
     return true;
   } catch (e) {
     return false;
