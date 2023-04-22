@@ -15,7 +15,7 @@ export class NetworksComboBox {
   }
 
   getView() {
-    return this.comboBox
+    return this.comboBox;
   }
 
   async loadData() {
@@ -27,11 +27,11 @@ export class NetworksComboBox {
         height: 40px;
         width: '100%';
       }
-    `)
+    `);
 
     for (const nw of this.networks) {
       const img = await getPixmap(nw.icon);
-      this.comboBox.addItem(new QIcon(img), nw.name || '');
+      this.comboBox.addItem(new QIcon(img), nw.name || "");
     }
 
     this.comboBox.addEventListener(`currentIndexChanged`, (index: number) => {
