@@ -7,6 +7,7 @@ const { QComboBox } = require("@nodegui/nodegui");
 export class NetworksComboBox {
   private comboBox = new QComboBox();
   private networks: Network[] = [];
+  onNetworkChanged?: (network: Network) => void;
 
   constructor() {
     this.comboBox.setObjectName("cbNetworks");
@@ -31,12 +32,12 @@ export class NetworksComboBox {
     for (const nw of this.networks) {
       const img = await getPixmap(nw.icon);
       this.comboBox.addItem(new QIcon(img), nw.name || '');
-
     }
-    this.comboBox.addEventListener('currentTextChanged', (text: string) => {
-      console.log('currentTextChanged: ' + text);
-    });
-    this.comboBox.addEventListener('currentIndexChanged', (index: string) => {
+
+    this.comboBox.addEventListener(`currentIndexChanged`, (index: number) => {
+      if (this.onNetworkChanged) {
+        this.onNetworkChanged(this.networks[index]);
+      }
     });
   }
 }

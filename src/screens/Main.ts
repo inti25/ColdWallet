@@ -1,7 +1,7 @@
 import {FlexLayout, QLabel, QPushButton} from "@nodegui/nodegui";
 import {NewWallet} from "./NewWallet";
 import {BaseScreen} from "./BaseScreen";
-import {NetworksComboBox} from "../components/cbNetworkList";
+import {NetworksComboBox} from "../components/NetworksComboBox";
 
 export class Main extends BaseScreen {
 
@@ -23,6 +23,9 @@ export class Main extends BaseScreen {
     });
 
     const cb = new NetworksComboBox();
+    cb.onNetworkChanged = (network =>  {
+      console.log('onNetworkChanged', network);
+    });
     layout.addWidget(cb.getView());
     layout.addWidget(label);
     layout.addWidget(generateButton);

@@ -69,10 +69,12 @@ export class Unlock extends BaseScreen {
           margin-bottom: 24px;
         }       
         #lbl {
-          margin-top: 5px;
+          width: '100%';
+          margin-bottom: 2px;
           font-size: 14px;
           font-weight: 600;
           color: #fff;
+          text-align: 'left';
         }
         #Input {
             width: '100%';
