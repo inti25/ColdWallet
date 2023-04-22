@@ -1,12 +1,12 @@
-import {IViewChange} from "./interfaces/IScreen";
-import {QMainWindow} from "@nodegui/nodegui";
-import {Main} from "./screens/Main";
-import {NewWallet} from "./screens/NewWallet";
-import {ConfirmSeedAndPassword} from "./screens/ConfirmSeedAndPassword";
-import {BaseScreen} from "./screens/BaseScreen";
-import {Unlock} from "./screens/Unlock";
+import { IViewChange } from "./interfaces/IScreen";
+import { QMainWindow } from "@nodegui/nodegui";
+import { Main } from "./screens/Main";
+import { NewWallet } from "./screens/NewWallet";
+import { ConfirmSeedAndPassword } from "./screens/ConfirmSeedAndPassword";
+import { BaseScreen } from "./screens/BaseScreen";
+import { Unlock } from "./screens/Unlock";
 
-export class Router implements IViewChange{
+export class Router implements IViewChange {
   private route: any;
   private readonly rootLayout: QMainWindow;
   private currentPage: BaseScreen | undefined;
@@ -28,8 +28,8 @@ export class Router implements IViewChange{
     const screen = this.route[name];
     if (screen) {
       const r = new screen(props);
-      r.attachToView(this.rootLayout)
-      r.setViewChangeListener(this)
+      r.attachToView(this.rootLayout);
+      r.setViewChangeListener(this);
       if (this.currentPage) {
         this.currentPage.delete();
       }
@@ -40,5 +40,4 @@ export class Router implements IViewChange{
   onChange(viewName: string, props?: any): void {
     this.change(viewName, props);
   }
-
 }

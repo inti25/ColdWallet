@@ -13,7 +13,9 @@ export async function saveFile(data: any, filename: string) {
 }
 
 export async function readFile(filename: string) {
-  const content = fs.readFileSync("data/" + filename + ".json", { encoding: "utf8" });
+  const content = fs.readFileSync("data/" + filename + ".json", {
+    encoding: "utf8",
+  });
   return JSON.parse(content);
 }
 

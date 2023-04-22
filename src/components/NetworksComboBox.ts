@@ -1,6 +1,6 @@
-import {QIcon} from "@nodegui/nodegui";
-import {loadNetworkList, Network} from "../model/Network";
-import {getPixmap} from "../utils/imageUtil";
+import { QIcon } from "@nodegui/nodegui";
+import { loadNetworkList, Network } from "../model/Network";
+import { getPixmap } from "../utils/imageUtil";
 
 const { QComboBox } = require("@nodegui/nodegui");
 

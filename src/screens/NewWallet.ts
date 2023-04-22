@@ -1,10 +1,9 @@
-import {FlexLayout, QLabel, QPixmap, QPushButton} from "@nodegui/nodegui";
-import {BaseScreen} from "./BaseScreen";
-import wallet from '../../assets/wallet.png';
-import {ConfirmSeedAndPassword} from "./ConfirmSeedAndPassword";
+import { FlexLayout, QLabel, QPixmap, QPushButton } from "@nodegui/nodegui";
+import { BaseScreen } from "./BaseScreen";
+import wallet from "../../assets/wallet.png";
+import { ConfirmSeedAndPassword } from "./ConfirmSeedAndPassword";
 
 export class NewWallet extends BaseScreen {
-
   constructor() {
     super(NewWallet.name);
   }
@@ -22,22 +21,17 @@ export class NewWallet extends BaseScreen {
 
     // Buttons
     const newBtn = new QPushButton();
-    newBtn.setText('Create a new wallet');
-    newBtn.setObjectName('PrimaryButton');
-    newBtn.addEventListener('clicked', () => {
-      // this.changeView(Main.name)
-      // const wallet = ethers.Wallet.createRandom();
-      // // saveFile({mnemonic: wallet.mnemonic?.phrase}, 'wallet');
-      // const user = new User(wallet.mnemonic?.phrase || '', [], (global as any).unlockCode);
-      // user.save()
-      this.changeView(ConfirmSeedAndPassword.name, {newWallet: true})
+    newBtn.setText("Create a new wallet");
+    newBtn.setObjectName("PrimaryButton");
+    newBtn.addEventListener("clicked", () => {
+      this.changeView(ConfirmSeedAndPassword.name, { newWallet: true });
     });
 
     const importBtn = new QPushButton();
-    importBtn.setText('Import an existing wallet');
-    importBtn.setObjectName('SecondaryButton');
-    importBtn.addEventListener('clicked', () => {
-      this.changeView(ConfirmSeedAndPassword.name, {newWallet: false})
+    importBtn.setText("Import an existing wallet");
+    importBtn.setObjectName("SecondaryButton");
+    importBtn.addEventListener("clicked", () => {
+      this.changeView(ConfirmSeedAndPassword.name, { newWallet: false });
     });
 
     layout.addWidget(label);
@@ -51,6 +45,6 @@ export class NewWallet extends BaseScreen {
           align-items: 'center';
           justify-content: 'space-around';
         }
-    `)
+    `);
   }
 }

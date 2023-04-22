@@ -1,11 +1,16 @@
-import {BaseScreen} from "./BaseScreen";
-import {EchoMode, FlexLayout, QLabel, QLineEdit, QPushButton} from "@nodegui/nodegui";
-import {showMessageBox} from "../utils/messageUtil";
-import {checkPassword, loadUser} from "../model/User";
-import {setPassword, setUser} from "../utils/globalUtil";
+import { BaseScreen } from "./BaseScreen";
+import {
+  EchoMode,
+  FlexLayout,
+  QLabel,
+  QLineEdit,
+  QPushButton,
+} from "@nodegui/nodegui";
+import { showMessageBox } from "../utils/messageUtil";
+import { checkPassword, loadUser } from "../model/User";
+import { setPassword, setUser } from "../utils/globalUtil";
 
 export class Unlock extends BaseScreen {
-
   constructor(props: { nextScreen: string }) {
     super(Unlock.name, props);
   }
@@ -15,38 +20,37 @@ export class Unlock extends BaseScreen {
     this.root.setLayout(layout);
     const label = new QLabel();
     label.setText("Welcome back!");
-    label.setObjectName('Title');
+    label.setObjectName("Title");
 
     const lblPassword = new QLabel();
     lblPassword.setText("Password:");
-    lblPassword.setObjectName('lbl')
+    lblPassword.setObjectName("lbl");
     const password = new QLineEdit();
     password.setEchoMode(EchoMode.Password);
-    password.setObjectName('Input');
+    password.setObjectName("Input");
 
     const confirmBtn = new QPushButton();
-    confirmBtn.setText('Unlock');
-    confirmBtn.setObjectName('PrimaryButton');
-    confirmBtn.addEventListener('clicked', () => {
-      if (password.text().trim() === '') {
-        showMessageBox('The value for the New Password field is missing!')
+    confirmBtn.setText("Unlock");
+    confirmBtn.setObjectName("PrimaryButton");
+    confirmBtn.addEventListener("clicked", () => {
+      if (password.text().trim() === "") {
+        showMessageBox("The value for the New Password field is missing!");
         return;
       }
 
-      checkPassword(password.text()).then(isCorrect => {
+      checkPassword(password.text()).then((isCorrect) => {
         if (isCorrect) {
           setPassword(password.text());
-          loadUser().then(user => {
+          loadUser().then((user) => {
             if (user) {
-              setUser(user)
+              setUser(user);
               this.changeView(this.props.nextScreen);
             }
-          })
+          });
         } else {
-          showMessageBox('Incorrect Password!')
+          showMessageBox("Incorrect Password!");
         }
-      })
-
+      });
     });
     layout.addWidget(label);
     layout.addWidget(lblPassword);
@@ -82,7 +86,6 @@ export class Unlock extends BaseScreen {
             border-radius: '4px';
             font-size: 14px;
         }
-    `)
+    `);
   }
-
 }

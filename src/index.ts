@@ -1,25 +1,25 @@
-import {QIcon, QMainWindow} from '@nodegui/nodegui';
-import {Router} from "./Router";
-import {Main} from "./screens/Main";
-import {User} from "./model/User";
-import {NewWallet} from "./screens/NewWallet";
-import {fileExists} from "./utils/fileUtil";
+import { QIcon, QMainWindow } from "@nodegui/nodegui";
+import { Router } from "./Router";
+import { Main } from "./screens/Main";
+import { User } from "./model/User";
+import { NewWallet } from "./screens/NewWallet";
+import { fileExists } from "./utils/fileUtil";
 import logo from "../assets/wallet.png";
-import {getPassword} from "./utils/globalUtil";
-import {Unlock} from "./screens/Unlock";
+import { getPassword } from "./utils/globalUtil";
+import { Unlock } from "./screens/Unlock";
 
 async function main() {
   const isData = fileExists(User.name);
   const win = new QMainWindow();
   win.setWindowTitle("My Wallet");
-  win.setWindowIcon(new QIcon(logo))
+  win.setWindowIcon(new QIcon(logo));
   win.setFixedSize(300, 400);
   const route = new Router(win);
   if (isData) {
     if (getPassword()) {
       route.change(Main.name);
     } else {
-      route.change(Unlock.name, {nextScreen: Main.name});
+      route.change(Unlock.name, { nextScreen: Main.name });
     }
   } else {
     route.change(NewWallet.name);
@@ -74,4 +74,3 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
-

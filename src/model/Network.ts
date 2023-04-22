@@ -1,4 +1,4 @@
-import {readFile} from "../utils/fileUtil";
+import { readFile } from "../utils/fileUtil";
 
 export class Network {
   id?: number;

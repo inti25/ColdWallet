@@ -1,9 +1,8 @@
-import {IScreen, IViewChange} from "../interfaces/IScreen";
-import {QMainWindow} from "@nodegui/nodegui";
-import {QWidget} from "@nodegui/nodegui/dist/lib/QtWidgets/QWidget";
+import { IScreen, IViewChange } from "../interfaces/IScreen";
+import { QMainWindow } from "@nodegui/nodegui";
+import { QWidget } from "@nodegui/nodegui/dist/lib/QtWidgets/QWidget";
 
 export abstract class BaseScreen implements IScreen {
-
   protected readonly root: QWidget;
   private listener: IViewChange | undefined;
   protected props: any;
@@ -14,7 +13,7 @@ export abstract class BaseScreen implements IScreen {
     this.props = pops;
   }
 
-  abstract initLayout() : void
+  abstract initLayout(): void;
 
   attachToView(rootView: QMainWindow): void {
     this.initLayout();
