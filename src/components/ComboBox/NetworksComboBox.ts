@@ -1,6 +1,6 @@
 import { QIcon } from "@nodegui/nodegui";
-import { loadNetworkList, Network } from "../model/Network";
-import { getPixmap } from "../utils/imageUtil";
+import { loadNetworkList, Network } from "../../model/Network";
+import { getPixmap } from "../../utils/imageUtil";
 
 const { QComboBox } = require("@nodegui/nodegui");
 
@@ -20,14 +20,6 @@ export class NetworksComboBox {
 
   async loadData() {
     this.networks = await loadNetworkList();
-    this.comboBox.setStyleSheet(`
-      #cbNetworks {
-        font-size: 14px;
-        font-weight: bold;
-        height: 40px;
-        width: '100%';
-      }
-    `);
 
     for (const nw of this.networks) {
       const img = await getPixmap(nw.icon);

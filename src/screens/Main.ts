@@ -1,7 +1,7 @@
 import { FlexLayout, QLabel, QPushButton } from "@nodegui/nodegui";
 import { NewWallet } from "./NewWallet";
 import { BaseScreen } from "./BaseScreen";
-import { NetworksComboBox } from "../components/NetworksComboBox";
+import { NetworksComboBox } from "../components/ComboBox/NetworksComboBox";
 
 export class Main extends BaseScreen {
   constructor() {
