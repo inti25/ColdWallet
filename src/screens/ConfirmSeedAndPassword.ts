@@ -91,24 +91,6 @@ export class ConfirmSeedAndPassword extends BaseScreen {
     layout.addWidget(lblPassword2);
     layout.addWidget(password2);
     layout.addWidget(confirmBtn);
-
-    this.root.setStyleSheet(`
-        #ConfirmSeedAndPassword{
-          background-color: #009688;
-          flex-direction: 'column';
-          padding: 4px
-        }
-        #lbl {
-          margin-top: 5px;
-          font-size: 14px;
-          font-weight: 600;
-          color: #fff;
-        }
-        #wordSeed {
-          font-size: 14px;
-          font-weight: 450;
-        }
-    `);
   }
 
   async createWallet(phrase: string, password: string): Promise<boolean> {

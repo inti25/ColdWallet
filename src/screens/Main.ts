@@ -28,12 +28,5 @@ export class Main extends BaseScreen {
     layout.addWidget(cb.getView());
     layout.addWidget(label);
     layout.addWidget(generateButton);
-
-    this.root.setStyleSheet(`
-        #Main{
-          background-color: #009688;
-          flex-direction: 'column';
-        }
-    `);
   }
 }

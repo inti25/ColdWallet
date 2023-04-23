@@ -56,36 +56,5 @@ export class Unlock extends BaseScreen {
     layout.addWidget(lblPassword);
     layout.addWidget(password);
     layout.addWidget(confirmBtn);
-
-    this.root.setStyleSheet(`
-        #Unlock{
-          background-color: #009688;
-          flex-direction: 'column';
-          align-items: 'center';
-          justify-content: 'center';
-          padding: 16px
-        }
-        #Title {
-          margin-top: 5px;
-          font-size: 24px;
-          font-weight: 600;
-          color: #fff;
-          margin-bottom: 24px;
-        }       
-        #lbl {
-          width: '100%';
-          margin-bottom: 2px;
-          font-size: 14px;
-          font-weight: 600;
-          color: #fff;
-          text-align: 'left';
-        }
-        #Input {
-            width: '100%';
-            height: 24px;
-            border-radius: '4px';
-            font-size: 14px;
-        }
-    `);
   }
 }

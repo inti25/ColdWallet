@@ -37,14 +37,5 @@ export class NewWallet extends BaseScreen {
     layout.addWidget(label);
     layout.addWidget(newBtn);
     layout.addWidget(importBtn);
-
-    this.root.setStyleSheet(`
-        #NewWallet{
-          background-color: #009688;
-          flex-direction: 'column';
-          align-items: 'center';
-          justify-content: 'space-around';
-        }
-    `);
   }
 }
