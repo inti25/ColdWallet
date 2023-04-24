@@ -1,11 +1,11 @@
 import { QIcon, QMainWindow } from "@nodegui/nodegui";
 import { Router } from "./Router";
-import { Main } from "./screens/Main";
+import { Main } from "./screens/main/Main";
 import { User } from "./model/User";
 import { NewWallet } from "./screens/NewWallet";
 import { fileExists } from "./utils/fileUtil";
 import logo from "../assets/wallet.png";
-import { getPassword } from "./utils/globalUtil";
+import { getGlobalEvent, getPassword } from "./utils/globalUtil";
 import { Unlock } from "./screens/Unlock";
 import { join } from "path";
 import { promises } from "fs";
@@ -17,7 +17,8 @@ async function main() {
   const win = new QMainWindow();
   win.setWindowTitle("My Wallet");
   win.setWindowIcon(new QIcon(logo));
-  win.setFixedSize(300, 400);
+  win.setFixedSize(600, 500);
+  getGlobalEvent();
   const route = new Router(win);
   if (isData) {
     if (getPassword()) {

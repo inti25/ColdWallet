@@ -1,6 +1,6 @@
 import { IViewChange } from "./interfaces/IScreen";
 import { QMainWindow } from "@nodegui/nodegui";
-import { Main } from "./screens/Main";
+import { Main } from "./screens/main/Main";
 import { NewWallet } from "./screens/NewWallet";
 import { ConfirmSeedAndPassword } from "./screens/ConfirmSeedAndPassword";
 import { BaseScreen } from "./screens/BaseScreen";

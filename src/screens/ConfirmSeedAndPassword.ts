@@ -13,7 +13,7 @@ import { getAccount } from "../utils/walletUtil";
 import { Account, AccountType } from "../model/Account";
 import { User } from "../model/User";
 import { setPassword, setUser } from "../utils/globalUtil";
-import { Main } from "./Main";
+import { Main } from "./main/Main";
 
 export class ConfirmSeedAndPassword extends BaseScreen {
   constructor(props: any) {
