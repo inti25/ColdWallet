@@ -16,7 +16,7 @@ export class AccountsComboBox extends QComboBox {
       const wallet = new ethers.Wallet(acc.privateKey);
       this.addItem(
         new QIcon(generateQPixmapImage(wallet.address)),
-        `${acc.name} \n ${wallet.address}`
+        `   ${acc.name}\n   ${wallet.address}`
       );
     }
   }
