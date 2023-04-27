@@ -1,10 +1,17 @@
 #TokenItem {
   flex-direction: 'row';
   justify-content: 'flex-start';
-  background: #00FFFF;
+  border-radius: 4px;
+  margin-bottom: 5px;
 }
 
 #TokenContainer {
   flex-direction: 'column';
   justify-content: 'center';
+  QLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #d9d6d6;
+  }
+  margin-bottom: 5px;
 }

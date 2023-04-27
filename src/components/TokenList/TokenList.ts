@@ -10,16 +10,18 @@ import { Network } from "../../model/Network";
 import { ethers, ZeroAddress } from "ethers";
 
 export class TokenList extends QWidget {
-  private root: any;
+  private root: FlexLayout | undefined;
   currentNetwork: Network | undefined;
+  tokens: Token[] | undefined;
+  items: TokenItem[] = [];
   constructor() {
     super();
     this.setObjectName(TokenList.name);
-    this.initView();
     this.addListener();
+    this.initData().then(() => {});
   }
 
-  async initView() {
+  async initData() {
     const tokensData = await Token.loadTokens();
     const nativeToken = new Token();
     nativeToken.name = this.currentNetwork?.nativeSymbol;
@@ -32,26 +34,44 @@ export class TokenList extends QWidget {
       return token.chainId === this.currentNetwork?.id;
     });
     tokens.unshift(nativeToken);
+    this.tokens = tokens;
+    this.initView();
+  }
+
+  initView() {
+    for (const i of this.items) {
+      i.delete();
+    }
     this.root?.delete();
+    this.items = [];
     this.root = new FlexLayout();
     this.setLayout(this.root);
-    for (const token of tokens) {
-      const item = new TokenItem(token);
-      this.root.addWidget(item);
+    if (this.tokens) {
+      for (const token of this.tokens) {
+        const item = new TokenItem(token);
+        this.root.addWidget(item);
+        this.items.push(item);
+      }
     }
   }
 
   addListener() {
     getGlobalEvent().addListener("onNetworkChanged", (args) => {
+      console.log("onNetworkChanged");
       this.currentNetwork = args;
       const rpc = (args as Network).rpc;
       const provider = new ethers.JsonRpcProvider(rpc ? rpc : "");
       setProvider(provider);
-      this.initView();
+      this.initData().then(() => {
+        this.initView();
+      });
     });
     getGlobalEvent().addListener("onAccountSelected", (args) => {
+      console.log("onAccountSelected");
       setCurrentAccount(args);
-      this.initView();
+      this.initData().then(() => {
+        this.initView();
+      });
     });
   }
 }
