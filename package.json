@@ -21,6 +21,7 @@
     "ethers": "^6.3.0",
     "file-system-cache": "^2.1.1",
     "generate-avatar": "^1.4.10",
+    "open": "^9.1.0",
     "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {

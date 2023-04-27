@@ -3,6 +3,7 @@ import { EventEmitter } from "events";
 import { Account } from "../model/Account";
 import { ethers } from "ethers";
 import { Signer } from "ethers/src.ts/providers/signer";
+import { Network } from "../model/Network";
 
 export function getGlobalEvent(): EventEmitter {
   if ((global as any).event) {
@@ -13,7 +14,9 @@ export function getGlobalEvent(): EventEmitter {
   }
 }
 
-export function setProvider(provider: any) {
+export function setCurrentNetwork(network: Network) {
+  (global as any).network = network;
+  const provider = new ethers.JsonRpcProvider(network.rpc || "");
   (global as any).provider = provider;
   const currentAccount = getCurrentAccount();
   if (currentAccount) {
@@ -30,6 +33,10 @@ export function getProvider() {
 
 export function getSigner(): Signer {
   return (global as any).signer;
+}
+
+export function getCurrentNetwork() {
+  return (global as any).network as Network;
 }
 
 export function setCurrentAccount(account: Account) {

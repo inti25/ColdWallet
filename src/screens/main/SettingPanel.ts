@@ -11,6 +11,8 @@ import icImport from "../../../assets/import.png";
 import icSetting from "../../../assets/settings.png";
 import icAddChain from "../../../assets/add_chain.png";
 import icShare from "../../../assets/share.png";
+import { getCurrentNetwork, getSigner } from "../../utils/globalUtil";
+import open from "open";
 
 export class SettingPanel extends QWidget {
   constructor(parent?: any) {
@@ -27,7 +29,7 @@ export class SettingPanel extends QWidget {
     btnView.setIcon(new QIcon(icShare));
     btnView.setIconSize(new QSize(32, 32));
     btnView.addEventListener("clicked", () => {
-      // getGlobalEvent().emit("onNetworkChanged", this._chain);
+      this.openExplorer();
     });
     btnView.setCursor(CursorShape.PointingHandCursor);
     btnView.setFlat(true);
@@ -83,5 +85,10 @@ export class SettingPanel extends QWidget {
     layout.addWidget(addAccount);
     layout.addWidget(btnImport);
     layout.addWidget(btnSetting);
+  }
+
+  async openExplorer() {
+    const address = await getSigner().getAddress();
+    open(`${getCurrentNetwork().blockExplorers}/address/${address}`);
   }
 }

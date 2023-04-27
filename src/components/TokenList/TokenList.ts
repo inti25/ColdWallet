@@ -2,7 +2,7 @@ import { FlexLayout, QWidget } from "@nodegui/nodegui";
 import {
   getGlobalEvent,
   setCurrentAccount,
-  setProvider,
+  setCurrentNetwork,
 } from "../../utils/globalUtil";
 import { Token } from "../../model/Token";
 import { TokenItem } from "./TokenItem";
@@ -60,10 +60,7 @@ export class TokenList extends QWidget {
     getGlobalEvent().addListener("onNetworkChanged", (args) => {
       console.log("onNetworkChanged");
       this.currentNetwork = args;
-      const rpc = (args as Network).rpc;
-      const provider = new ethers.JsonRpcProvider(rpc ? rpc : "");
-      setProvider(provider);
-      this.initData();
+      setCurrentNetwork(args);
     });
     getGlobalEvent().addListener("onAccountSelected", (args) => {
       console.log("onAccountSelected");
