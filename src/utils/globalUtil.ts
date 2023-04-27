@@ -36,10 +36,7 @@ export function setCurrentAccount(account: Account) {
   (global as any).currentAccount = account;
   const provider = getProvider();
   if (provider) {
-    const signer = new ethers.Wallet(account.privateKey, provider);
-    (global as any).signer = signer;
-    console.log("provider", provider);
-    console.log("signer", signer);
+    (global as any).signer = new ethers.Wallet(account.privateKey, provider);
   }
 }
 

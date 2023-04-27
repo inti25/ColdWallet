@@ -1,8 +1,7 @@
 import { Network } from "../../model/Network";
 import {
   CursorShape,
-  Direction,
-  QBoxLayout,
+  FlexLayout,
   QIcon,
   QPixmap,
   QPushButton,
@@ -26,7 +25,7 @@ export class ChainItemView extends QWidget {
   }
 
   async initView() {
-    const layout = new QBoxLayout(Direction.TopToBottom);
+    const layout = new FlexLayout();
     this.setLayout(layout);
     let pixmap: QPixmap;
     try {

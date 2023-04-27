@@ -50,7 +50,6 @@ export class TokenList extends QWidget {
       this.initView();
     });
     getGlobalEvent().addListener("onAccountSelected", (args) => {
-      console.log("onAccountSelected", args);
       setCurrentAccount(args);
       this.initView();
     });

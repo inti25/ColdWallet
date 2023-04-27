@@ -7,7 +7,7 @@ import {
   getProvider,
   getSigner,
 } from "../../utils/globalUtil";
-import { parseEther, ZeroAddress } from "ethers";
+import { formatEther, parseEther, ZeroAddress } from "ethers";
 
 export class TokenItem extends QWidget {
   token: Token;
@@ -35,12 +35,10 @@ export class TokenItem extends QWidget {
     tokenName.setText(this.token.name || "");
 
     const balance = new QLabel();
-    console.log(this.token.address, ZeroAddress, getCurrentAccount());
     const address = await getSigner().getAddress();
     if (this.token.address === ZeroAddress && address) {
       const bal = await getProvider().getBalance(address);
-      console.log(ZeroAddress, bal);
-      balance.setText(parseEther(bal).toString());
+      balance.setText(formatEther(bal));
     } else {
       balance.setText("0.0");
     }
