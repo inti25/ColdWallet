@@ -39,6 +39,7 @@ export class TokenList extends QWidget {
   }
 
   initView() {
+    if (!this.native) return;
     for (const i of this.items) {
       i.delete();
     }
@@ -62,16 +63,12 @@ export class TokenList extends QWidget {
       const rpc = (args as Network).rpc;
       const provider = new ethers.JsonRpcProvider(rpc ? rpc : "");
       setProvider(provider);
-      this.initData().then(() => {
-        this.initView();
-      });
+      this.initData();
     });
     getGlobalEvent().addListener("onAccountSelected", (args) => {
       console.log("onAccountSelected");
       setCurrentAccount(args);
-      this.initData().then(() => {
-        this.initView();
-      });
+      this.initData();
     });
   }
 }
