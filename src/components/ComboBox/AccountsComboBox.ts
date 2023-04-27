@@ -1,5 +1,5 @@
 import { QComboBox, QIcon } from "@nodegui/nodegui";
-import { getUser } from "../../utils/globalUtil";
+import { getGlobalEvent, getUser } from "../../utils/globalUtil";
 import { ethers } from "ethers";
 import { generateQPixmapImage } from "../../utils/imageUtil";
 
@@ -19,5 +19,9 @@ export class AccountsComboBox extends QComboBox {
         `   ${acc.name}\n   ${wallet.address}`
       );
     }
+
+    this.addEventListener(`currentIndexChanged`, (index: number) => {
+      getGlobalEvent().emit("onAccountSelected", user.accounts[index]);
+    });
   }
 }

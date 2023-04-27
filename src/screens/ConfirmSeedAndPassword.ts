@@ -11,7 +11,7 @@ import { ethers } from "ethers";
 import { showMessageBox } from "../utils/messageUtil";
 import { getAccount } from "../utils/walletUtil";
 import { Account, AccountType } from "../model/Account";
-import { User } from "../model/User";
+import { loadUser, User } from "../model/User";
 import { setPassword, setUser } from "../utils/globalUtil";
 import { Main } from "./main/Main";
 
@@ -100,10 +100,18 @@ export class ConfirmSeedAndPassword extends BaseScreen {
       accs.push(
         new Account("Account 1", AccountType.INDEX, 0, wallet.privateKey)
       );
+      const wallet2 = getAccount(phrase, 1);
+      accs.push(
+        new Account("Account 2", AccountType.INDEX, 1, wallet2.privateKey)
+      );
+      const wallet3 = getAccount(phrase, 2);
+      accs.push(
+        new Account("Account 3", AccountType.INDEX, 2, wallet3.privateKey)
+      );
       setPassword(password);
       let user = new User(phrase, accs, password);
       await user.save();
-      setUser(user);
+      setUser((await loadUser()) || user);
       return true;
     } catch (e) {
       console.error(e);

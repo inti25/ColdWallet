@@ -5,6 +5,7 @@ export class Network {
   name?: string;
   icon?: string;
   nativeSymbol?: string;
+  nativeImage?: string;
   rpc?: string;
   blockExplorers?: string;
 }

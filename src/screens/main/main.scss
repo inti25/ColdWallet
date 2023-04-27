@@ -2,16 +2,32 @@
   width: 64px;
   padding: 0;
   margin: 0;
-  //align-items: 'flex-start';
   flex-direction: 'column';
   background: #ffffff;
+
+  QPushButton {
+    width: 64px;
+    height: 64px;
+  }
 }
+
 #MainPanel {
-  width: '100%';
+  flex: 1;
   height: '100%';
-  flex-direction: 'row';
-  justify-content: 'center';
-  margin-left: -32px;
+  flex-direction: 'column';
+  justify-content: 'flex-start';
   padding: 4px;
-  //align-items: 'end';
+}
+
+#SettingPanel {
+  width: 64px;
+  padding: 0;
+  margin: 0;
+  flex-direction: 'column';
+  background: #ffffff;
+
+  QPushButton {
+    width: 64px;
+    height: 64px;
+  }
 }

@@ -46,7 +46,7 @@ export function decrypt(text: string, password: string) {
   return decrypted.toString();
 }
 
-function randomString(length: number) {
+export function randomString(length: number) {
   let result = "";
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

@@ -1,5 +1,6 @@
 import { Network } from "../../model/Network";
 import {
+  CursorShape,
   Direction,
   QBoxLayout,
   QIcon,
@@ -37,10 +38,13 @@ export class ChainItemView extends QWidget {
     const icon = new QPushButton();
     icon.setObjectName("ItemView");
     icon.setIcon(new QIcon(pixmap));
-    icon.setIconSize(new QSize(this.width() - 3, this.height() - 3));
-    layout.addWidget(icon);
+    icon.setIconSize(new QSize(32, 32));
     icon.addEventListener("clicked", () => {
       getGlobalEvent().emit("onNetworkChanged", this._chain);
     });
+    icon.setCursor(CursorShape.PointingHandCursor);
+    icon.setFlat(true);
+    icon.setAutoExclusive(true);
+    layout.addWidget(icon);
   }
 }
