@@ -15,6 +15,7 @@ import { formatEther, ZeroAddress } from "ethers";
 
 import icSend from "../../../assets/send.png";
 import icRefresh from "../../../assets/refresh.png";
+import { TransferDialog } from "../transfer/TransferDialog";
 
 export class TokenItem extends QWidget {
   token: Token;
@@ -91,8 +92,11 @@ export class TokenItem extends QWidget {
     this.btnSend.setCursor(CursorShape.PointingHandCursor);
     this.btnSend.setFlat(true);
     this.btnSend.setAutoExclusive(true);
-    this.btnSend.setToolTip("Update Balance");
-
+    this.btnSend.setToolTip("Send Token");
+    this.btnSend.addEventListener("clicked", () => {
+      const dg = new TransferDialog();
+      dg.show();
+    });
     layout.addWidget(this.btnRefresh);
     layout.addWidget(this.btnSend);
   }

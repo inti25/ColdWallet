@@ -1,12 +1,11 @@
 import {
   FlexLayout,
   QApplication,
+  QDialog,
   QIcon,
   QLabel,
-  QMainWindow,
   QPixmap,
   QPushButton,
-  QWidget,
 } from "@nodegui/nodegui";
 import logo from "../../../assets/wallet.png";
 import icCopy from "../../../assets/copy.png";
@@ -18,8 +17,7 @@ import { join } from "path";
 const { readFile } = promises;
 const stylePath = join(__dirname, "styles", "base.css");
 
-export class AccountWindow extends QMainWindow {
-  rootLayout: QWidget = new QWidget();
+export class AccountDialog extends QDialog {
   qrcode: QLabel = new QLabel();
   viewOnExplorer: QLabel = new QLabel();
   copyBtn: QPushButton = new QPushButton();
@@ -30,10 +28,9 @@ export class AccountWindow extends QMainWindow {
     this.setWindowTitle("Account Detail");
     this.setWindowIcon(new QIcon(logo));
     this.setFixedSize(300, 450);
-    this.setCentralWidget(this.rootLayout);
     const view = new FlexLayout();
-    this.rootLayout.setObjectName("AccountDetail");
-    this.rootLayout.setLayout(view);
+    this.setObjectName("AccountDetail");
+    this.setLayout(view);
     this.qrcode.setScaledContents(true);
     this.qrcode.setFixedSize(280, 280);
     this.copyBtn.setIcon(new QIcon(icCopy));
