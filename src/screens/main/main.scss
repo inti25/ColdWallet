@@ -4,7 +4,6 @@
   margin: 0;
   flex-direction: 'column';
   background: #ffffff;
-
   QPushButton {
     width: 64px;
     height: 64px;
@@ -17,6 +16,8 @@
   flex-direction: 'column';
   justify-content: 'flex-start';
   padding: 4px;
+  border-right: 1px solid #bcbdbd;
+  border-left: 1px solid #bcbdbd;
 }
 
 #SettingPanel {

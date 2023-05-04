@@ -1,10 +1,13 @@
 #TokenItem {
   flex-direction: 'row';
   justify-content: 'flex-start';
-  border-radius: 4px;
-  margin-bottom: 5px;
+  //border-radius: 4px;
+  //margin-bottom: 5px;
   align-items: 'center';
-
+  height: 'auto';
+  border-bottom: 1px dashed #5c5e5e;
+  padding-bottom: 4px;
+  padding-top: 4px;
 }
 
 #TokenContainer {

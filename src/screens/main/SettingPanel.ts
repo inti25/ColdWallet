@@ -13,6 +13,7 @@ import icAddChain from "../../../assets/add_chain.png";
 import icShare from "../../../assets/share.png";
 import { getCurrentNetwork, getSigner } from "../../utils/globalUtil";
 import open from "open";
+import { AccountWindow } from "../account/AccountWindow";
 
 export class SettingPanel extends QWidget {
   constructor() {
@@ -29,7 +30,8 @@ export class SettingPanel extends QWidget {
     btnView.setIcon(new QIcon(icShare));
     btnView.setIconSize(new QSize(32, 32));
     btnView.addEventListener("clicked", () => {
-      this.openExplorer();
+      const detail = new AccountWindow();
+      detail.show();
     });
     btnView.setCursor(CursorShape.PointingHandCursor);
     btnView.setFlat(true);

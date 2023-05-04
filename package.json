@@ -22,12 +22,14 @@
     "file-system-cache": "^2.1.1",
     "generate-avatar": "^1.4.10",
     "open": "^9.1.0",
+    "qrcode": "^1.5.3",
     "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {
     "@nodegui/packer": "^1.5.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "^18.7.14",
+    "@types/qrcode": "^1.5.0",
     "@types/ws": "^8.5.4",
     "@typescript-eslint/parser": "^5.59.0",
     "clean-webpack-plugin": "^4.0.0",

@@ -23,7 +23,7 @@ export async function getPixmap(url: any) {
 }
 
 export function generateQPixmapImage(data: string | undefined): QPixmap {
-  data = data ? data : "";
+  data = data ? data : randomString(10);
   const pixmap = new QPixmap();
   const iData = Buffer.from(`${generateFromString(data)}`);
   pixmap.loadFromData(iData);
