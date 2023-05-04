@@ -61,6 +61,7 @@ export class TokenList extends QWidget {
       console.log("onNetworkChanged");
       this.currentNetwork = args;
       setCurrentNetwork(args);
+      this.initData();
     });
     getGlobalEvent().addListener("onAccountSelected", (args) => {
       console.log("onAccountSelected");

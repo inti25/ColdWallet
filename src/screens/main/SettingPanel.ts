@@ -15,8 +15,8 @@ import { getCurrentNetwork, getSigner } from "../../utils/globalUtil";
 import open from "open";
 
 export class SettingPanel extends QWidget {
-  constructor(parent?: any) {
-    super(parent);
+  constructor() {
+    super();
     this.setObjectName("SettingPanel");
     this.initLayout();
   }

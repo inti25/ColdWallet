@@ -1,60 +1,99 @@
-import { FlexLayout, QLabel, QPixmap, QWidget } from "@nodegui/nodegui";
+import {
+  CursorShape,
+  FlexLayout,
+  QIcon,
+  QLabel,
+  QPixmap,
+  QPushButton,
+  QSize,
+  QWidget,
+} from "@nodegui/nodegui";
 import { Token } from "../../model/Token";
 import { getPixmap } from "../../utils/imageUtil";
-import {
-  getCurrentAccount,
-  getGlobalEvent,
-  getProvider,
-  getSigner,
-} from "../../utils/globalUtil";
-import { formatEther, parseEther, ZeroAddress } from "ethers";
+import { getProvider, getSigner } from "../../utils/globalUtil";
+import { formatEther, ZeroAddress } from "ethers";
+
+import icSend from "../../../assets/send.png";
+import icRefresh from "../../../assets/refresh.png";
 
 export class TokenItem extends QWidget {
   token: Token;
-  images: QPixmap | undefined;
-  tokenBalance: string | undefined;
+  private logo: QLabel = new QLabel();
+  private tokenName: QLabel = new QLabel();
+  private balance: QLabel = new QLabel();
+  private btnRefresh = new QPushButton();
+  private btnSend = new QPushButton();
+
   constructor(token: Token) {
     super();
     this.setObjectName(TokenItem.name);
     this.token = token;
-    this.initData().then(() => {
-      if (this.native) {
-        this.initLayout();
-      }
-    });
+    this.initLayout();
+    this.updateData();
+
+    // this.initData().then(() => {
+    //   if (this.native) {
+    //     this.initLayout();
+    //   }
+    // });
   }
 
-  async initData() {
-    this.images = await getPixmap(this.token.image || "");
+  setIcon(img: QPixmap) {
+    if (this.native && img) {
+      this.logo.setPixmap(img);
+    }
+  }
+
+  setBalance(bal: string) {
+    if (this.native) {
+      this.balance.setText(bal);
+    }
+  }
+
+  async updateData() {
+    this.setIcon(await getPixmap(this.token.image || ""));
     const address = await getSigner().getAddress();
     if (this.token.address === ZeroAddress && address) {
       const bal = await getProvider().getBalance(address);
-      this.tokenBalance = formatEther(bal);
+      this.setBalance(formatEther(bal));
     } else {
-      this.tokenBalance = "0.0";
+      this.setBalance("0.0");
     }
   }
 
   initLayout() {
     const layout = new FlexLayout();
     this.setLayout(layout);
-    const logo = new QLabel();
-    logo.setFixedSize(36, 36);
-    if (this.images) {
-      logo.setPixmap(this.images);
-    }
-    logo.setScaledContents(true);
-    layout.addWidget(logo);
+    layout.addWidget(this.logo);
+    this.logo.setObjectName("TokenImage");
+    this.logo.setFixedSize(36, 36);
+    this.logo.setScaledContents(true);
     const container = new QWidget();
     container.setObjectName("TokenContainer");
     const container_layout = new FlexLayout();
     container.setLayout(container_layout);
-    const tokenName = new QLabel();
-    tokenName.setText(this.token.name || "");
-    const balance = new QLabel();
-    balance.setText(this.tokenBalance || "");
-    container_layout.addWidget(tokenName);
-    container_layout.addWidget(balance);
+    this.tokenName.setObjectName("TokenText");
+    this.balance.setObjectName("TokenText");
+    this.tokenName.setText(this.token.name || "");
+    this.balance.setText("0.0");
+    container_layout.addWidget(this.tokenName);
+    container_layout.addWidget(this.balance);
     layout.addWidget(container);
+
+    this.btnRefresh.setIcon(new QIcon(icRefresh));
+    this.btnRefresh.setIconSize(new QSize(24, 24));
+    this.btnRefresh.setCursor(CursorShape.PointingHandCursor);
+    this.btnRefresh.setFlat(true);
+    this.btnRefresh.setAutoExclusive(true);
+    this.btnRefresh.setToolTip("Update Balance");
+    this.btnSend.setIcon(new QIcon(icSend));
+    this.btnSend.setIconSize(new QSize(24, 24));
+    this.btnSend.setCursor(CursorShape.PointingHandCursor);
+    this.btnSend.setFlat(true);
+    this.btnSend.setAutoExclusive(true);
+    this.btnSend.setToolTip("Update Balance");
+
+    layout.addWidget(this.btnRefresh);
+    layout.addWidget(this.btnSend);
   }
 }

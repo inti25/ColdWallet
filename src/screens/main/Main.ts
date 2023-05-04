@@ -13,10 +13,10 @@ export class Main extends BaseScreen {
     const layout = new FlexLayout();
     this.root.setLayout(layout);
     const networkPanel = new NetworkListPanel();
-    layout.addWidget(networkPanel);
     const mainPanel = new MainPanel();
-    layout.addWidget(mainPanel);
     const settingPanel = new SettingPanel();
+    layout.addWidget(networkPanel);
+    layout.addWidget(mainPanel);
     layout.addWidget(settingPanel);
   }
 }

@@ -3,15 +3,24 @@
   justify-content: 'flex-start';
   border-radius: 4px;
   margin-bottom: 5px;
+  align-items: 'center';
+
 }
 
 #TokenContainer {
   flex-direction: 'column';
   justify-content: 'center';
-  QLabel {
-    font-size: 14px;
-    font-weight: 500;
-    color: #d9d6d6;
-  }
+  align-items: 'center';
   margin-bottom: 5px;
+  height: '100%';
+  flex: 1;
+  #TokenText {
+    font-size: 14px;
+    color: black;
+    width: '100%';
+  }
+  #TokenImage {
+    width: 36px;
+    height: 36px;
+  }
 }

@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { generateQPixmapImage } from "../../utils/imageUtil";
 
 export class AccountsComboBox extends QComboBox {
+  users = getUser();
   constructor(parent?: any) {
     super(parent);
     this.setObjectName(AccountsComboBox.name);
@@ -11,17 +12,15 @@ export class AccountsComboBox extends QComboBox {
   }
 
   initView() {
-    const user = getUser();
-    for (const acc of user.accounts) {
+    for (const acc of this.users.accounts) {
       const wallet = new ethers.Wallet(acc.privateKey);
       this.addItem(
         new QIcon(generateQPixmapImage(wallet.address)),
         `   ${acc.name}\n   ${wallet.address}`
       );
     }
-
     this.addEventListener(`currentIndexChanged`, (index: number) => {
-      getGlobalEvent().emit("onAccountSelected", user.accounts[index]);
+      getGlobalEvent().emit("onAccountSelected", this.users.accounts[index]);
     });
   }
 }
