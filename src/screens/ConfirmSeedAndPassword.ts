@@ -98,15 +98,7 @@ export class ConfirmSeedAndPassword extends BaseScreen {
       const wallet = getAccount(phrase, 0);
       const accs: Account[] = [];
       accs.push(
-        new Account("Account 1", AccountType.INDEX, 0, wallet.privateKey)
-      );
-      const wallet2 = getAccount(phrase, 1);
-      accs.push(
-        new Account("Account 2", AccountType.INDEX, 1, wallet2.privateKey)
-      );
-      const wallet3 = getAccount(phrase, 2);
-      accs.push(
-        new Account("Account 3", AccountType.INDEX, 2, wallet3.privateKey)
+        new Account("Account 1", AccountType.INDEX, 0, wallet.privateKey, 0)
       );
       setPassword(password);
       let user = new User(phrase, accs, password);

@@ -15,7 +15,7 @@ import { formatEther, ZeroAddress } from "ethers";
 
 import icSend from "../../../assets/send.png";
 import icRefresh from "../../../assets/refresh.png";
-import { TransferDialog } from "../transfer/TransferDialog";
+import { TransferDialog } from "../../screens/transfer/TransferDialog";
 
 export class TokenItem extends QWidget {
   token: Token;
@@ -31,12 +31,6 @@ export class TokenItem extends QWidget {
     this.token = token;
     this.initLayout();
     this.updateData();
-
-    // this.initData().then(() => {
-    //   if (this.native) {
-    //     this.initLayout();
-    //   }
-    // });
   }
 
   setIcon(img: QPixmap) {
@@ -94,10 +88,23 @@ export class TokenItem extends QWidget {
     this.btnSend.setAutoExclusive(true);
     this.btnSend.setToolTip("Send Token");
     this.btnSend.addEventListener("clicked", () => {
-      const dg = new TransferDialog();
+      const dg = new TransferDialog({
+        token: this.token,
+        balance: parseFloat(this.balance.text()),
+      });
       dg.show();
     });
     layout.addWidget(this.btnRefresh);
     layout.addWidget(this.btnSend);
+  }
+
+  setHiddenActionBtn(isHidden: boolean) {
+    if (isHidden) {
+      this.btnSend.setHidden(true);
+      this.btnRefresh.setHidden(true);
+    } else {
+      this.btnSend.setHidden(false);
+      this.btnRefresh.setHidden(false);
+    }
   }
 }

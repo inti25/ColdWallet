@@ -66,7 +66,9 @@ export class TokenList extends QWidget {
     getGlobalEvent().addListener("onAccountSelected", (args) => {
       console.log("onAccountSelected");
       setCurrentAccount(args);
-      this.initData();
+      for (const item of this.items) {
+        item.updateData();
+      }
     });
   }
 }

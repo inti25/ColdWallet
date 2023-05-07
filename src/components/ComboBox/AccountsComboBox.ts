@@ -22,5 +22,8 @@ export class AccountsComboBox extends QComboBox {
     this.addEventListener(`currentIndexChanged`, (index: number) => {
       getGlobalEvent().emit("onAccountSelected", this.users.accounts[index]);
     });
+    getGlobalEvent().addListener("onAccountSelected", (account) => {
+      this.setCurrentIndex(account.displayIndex);
+    });
   }
 }

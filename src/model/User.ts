@@ -45,7 +45,8 @@ export async function loadUser(): Promise<User | null> {
           acc.name,
           acc.type,
           acc.index,
-          decrypt(acc.privateKey, code)
+          decrypt(acc.privateKey, code),
+          acc.displayIndex
         );
       }),
       data.password

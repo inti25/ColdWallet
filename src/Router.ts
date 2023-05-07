@@ -5,6 +5,7 @@ import { NewWallet } from "./screens/NewWallet";
 import { ConfirmSeedAndPassword } from "./screens/ConfirmSeedAndPassword";
 import { BaseScreen } from "./screens/BaseScreen";
 import { Unlock } from "./screens/Unlock";
+import { DetailTransfer } from "./screens/transfer/DetailTransfer";
 
 export class Router implements IViewChange {
   private route: any;
@@ -22,6 +23,7 @@ export class Router implements IViewChange {
     this.route[Unlock.name] = Unlock;
     this.route[NewWallet.name] = NewWallet;
     this.route[ConfirmSeedAndPassword.name] = ConfirmSeedAndPassword;
+    this.route[DetailTransfer.name] = DetailTransfer;
   }
 
   change(name: string, props?: any) {
