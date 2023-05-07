@@ -33,16 +33,20 @@ export class TokenItem extends QWidget {
     this.updateData();
   }
 
-  setIcon(img: QPixmap) {
+  private setIcon(img: QPixmap) {
     if (this.native && img) {
       this.logo.setPixmap(img);
     }
   }
 
-  setBalance(bal: string) {
+  private setBalance(bal: string) {
     if (this.native) {
       this.balance.setText(bal);
     }
+  }
+
+  getBalance(): string {
+    return this.balance.text();
   }
 
   async updateData() {
@@ -56,7 +60,7 @@ export class TokenItem extends QWidget {
     }
   }
 
-  initLayout() {
+  private initLayout() {
     const layout = new FlexLayout();
     this.setLayout(layout);
     layout.addWidget(this.logo);

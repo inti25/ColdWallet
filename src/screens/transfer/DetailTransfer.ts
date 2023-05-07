@@ -1,22 +1,16 @@
 import { BaseScreen } from "../BaseScreen";
-import {
-  Direction,
-  FlexLayout,
-  QBoxLayout,
-  QLabel,
-  QLineEdit,
-} from "@nodegui/nodegui";
+import { FlexLayout, QLabel, QLineEdit } from "@nodegui/nodegui";
 import { AccountsComboBox } from "../../components/ComboBox/AccountsComboBox";
 import { getCurrentAccount, getGlobalEvent } from "../../utils/globalUtil";
 import { TransferData } from "../../utils/types";
-import { QWidget } from "@nodegui/nodegui/dist/lib/QtWidgets/QWidget";
 import { TokenItem } from "../../components/TokenList/TokenItem";
+import { NumberInput } from "../../components/NumberInput/NumberInput";
 
 export class DetailTransfer extends BaseScreen {
   transferData: TransferData;
   cbAccount = new AccountsComboBox();
   toAccount = new QLineEdit();
-  amount = new QLineEdit();
+  amount = new NumberInput();
   tokenIcon = new QLabel();
   balance = new QLabel();
   tokenItem: TokenItem;
