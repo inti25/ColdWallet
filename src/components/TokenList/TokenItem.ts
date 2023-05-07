@@ -16,6 +16,7 @@ import { formatEther, ZeroAddress } from "ethers";
 import icSend from "../../../assets/send.png";
 import icRefresh from "../../../assets/refresh.png";
 import { TransferDialog } from "../../screens/transfer/TransferDialog";
+import { formatCurrencyUSD } from "../../utils/common";
 
 export class TokenItem extends QWidget {
   token: Token;
@@ -41,12 +42,12 @@ export class TokenItem extends QWidget {
 
   private setBalance(bal: string) {
     if (this.native) {
-      this.balance.setText(bal);
+      this.balance.setText(formatCurrencyUSD(bal));
     }
   }
 
-  getBalance(): string {
-    return this.balance.text();
+  getBalance(): number {
+    return parseFloat(this.balance.text().replace(",", ""));
   }
 
   async updateData() {
