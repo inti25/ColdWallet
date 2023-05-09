@@ -14,7 +14,7 @@
     "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
     "nativeSymbol": "ETH",
     "nativeImage": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
-    "rpc": "https://goerli.infura.io/v3/",
+    "rpc": "https://rpc.ankr.com/eth_goerli",
     "blockExplorers": "https://goerli.etherscan.io"
   },
   {
