@@ -1,27 +1,13 @@
 {
-  "password": "{ENC}$2a$10$NhwoT3JHIfxc/htKsbQebeg3AHaO/0NRnGgwWDxyBlW4Eg6xr7ctK",
-  "wallet": "7b066273d9eb19e6e1c8fa4f43be309d:83c236a8059507ab7d81fa1ce587bbd9204ecbb9204e4f641090de98fe7ed78f7a9719cbeb774de164070d15f42f748881275983eced4fb0abff3fb5489b8eed8de81c89114e6e187947a1814ea60bb4",
+  "password": "{ENC}$2a$10$Cviajgkrx2z4.ZtUA48/5ObNuPhBUD6B7wtvrULUSQWcu3g3QGDqO",
+  "wallet": "afa71edcae30bd45b0e159bdf3ae81a4:020af2bb5e71d6e8a4da324c78c2f1ef364ba0f069f17bcc0e703ff161bd19463196d9883f31cf76dc67284b4bda275e6f6b9404702abadd4130280ecfe5901620ce960cb5af53feebd895333c555faa4a7ee31d5d4005669b24b147f581f12d",
   "accounts": [
     {
       "name": "Account 1",
       "type": 0,
       "index": 0,
-      "privateKey": "d93e045a4055c4421642f13802a2bdb6:fa00efa9da130572b5bd2fdda12bac4a68bfad69068120cbc572aa5409f0faafe88d2610e2d5f05b936a4f37c38d31fd2fe3b419b221f8562c784886b2b5ef2467d5d3bc9752cbc20439a66c59ec9c38",
+      "privateKey": "56875968f9e9d08e8c32ed73ceeb62bf:87320893029e1acc4c9bba0b388b1a3fc0875e90a4873b7993343362b77ad412748b5fbb1ba23f78bbba1284c14be59b92d21c30e1e8a51ec401c49081f3a76534b26ffeee6f7fe0e843959b76d130db",
       "displayIndex": 0
-    },
-    {
-      "name": "Account 2",
-      "type": 0,
-      "index": 1,
-      "privateKey": "efdac2464d4e4a113d517e4e5378bbef:45d3bb40a6e201c6be50bea2c439eb43560534612418ab131fac1a7e558ce724ec0c8f2cf32e948998a744510fbacbe5733b910aa665135f559dfd27e3c3ec06d69bb1afd75b2a005c2f0deed578cf02",
-      "displayIndex": 1
-    },
-    {
-      "name": "Account 3",
-      "type": 0,
-      "index": 2,
-      "privateKey": "10706e318190912c679a35a4c85039ef:a2933ee62fa5297fcfeeacc69d30da987fc1d462cdddda186503059d01922a5e543d4e5ed5f5eddd5a501c47c85e258b0cba321591093b4b6f2f75cd98a4a8a1ff08619fe3399b40010fc4f376e49159",
-      "displayIndex": 2
     }
   ]
 }

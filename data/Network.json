@@ -9,6 +9,15 @@
     "blockExplorers": "https://goerli.arbiscan.io/"
   },
   {
+    "id": 5,
+    "name": "Goerli test network",
+    "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    "nativeSymbol": "ETH",
+    "nativeImage": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    "rpc": "https://goerli.infura.io/v3/",
+    "blockExplorers": "https://goerli.etherscan.io"
+  },
+  {
     "id": 1,
     "name": "Ethereum Mainnet",
     "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
