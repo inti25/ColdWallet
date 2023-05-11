@@ -1,4 +1,4 @@
-import { FlexLayout, QWidget } from "@nodegui/nodegui";
+import { FlexLayout, QIcon, QPushButton, QWidget } from "@nodegui/nodegui";
 import {
   getGlobalEvent,
   setCurrentAccount,
@@ -8,12 +8,14 @@ import { Token } from "../../model/Token";
 import { TokenItem } from "./TokenItem";
 import { Network } from "../../model/Network";
 import { ethers, ZeroAddress } from "ethers";
+import icAdd from "../../../assets/add.png";
 
 export class TokenList extends QWidget {
   private root: FlexLayout | undefined;
   currentNetwork: Network | undefined;
   tokens: Token[] | undefined;
   items: TokenItem[] = [];
+  btnImport: QPushButton | undefined;
   constructor() {
     super();
     this.setObjectName(TokenList.name);
@@ -43,6 +45,7 @@ export class TokenList extends QWidget {
     for (const i of this.items) {
       i.delete();
     }
+    this.btnImport?.delete();
     this.root?.delete();
     this.items = [];
     this.root = new FlexLayout();
@@ -54,6 +57,15 @@ export class TokenList extends QWidget {
         this.items.push(item);
       }
     }
+
+    this.btnImport = new QPushButton();
+    this.btnImport.setText("Import Token");
+    this.btnImport.setIcon(new QIcon(icAdd));
+    this.btnImport.setObjectName("SecondaryButton");
+    this.btnImport.addEventListener("clicked", () => {
+      // this.authenticationDialog.exec();
+    });
+    this.root.addWidget(this.btnImport);
   }
 
   addListener() {

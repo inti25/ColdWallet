@@ -86,6 +86,9 @@ export class TokenItem extends QWidget {
     this.btnRefresh.setFlat(true);
     this.btnRefresh.setAutoExclusive(true);
     this.btnRefresh.setToolTip("Update Balance");
+    this.btnRefresh.addEventListener("clicked", () => {
+      this.updateData();
+    });
     this.btnSend.setIcon(new QIcon(icSend));
     this.btnSend.setIconSize(new QSize(24, 24));
     this.btnSend.setCursor(CursorShape.PointingHandCursor);

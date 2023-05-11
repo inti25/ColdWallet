@@ -6,13 +6,21 @@ import {
   QLabel,
   QPixmap,
   QPushButton,
+  QSize,
+  WindowType,
 } from "@nodegui/nodegui";
 import logo from "../../../assets/wallet.png";
 import icCopy from "../../../assets/copy.png";
-import { getCurrentNetwork, getSigner } from "../../utils/globalUtil";
+import {
+  getCurrentAccount,
+  getCurrentNetwork,
+  getSigner,
+} from "../../utils/globalUtil";
 import QRCode from "qrcode";
 import { promises } from "fs";
 import { join } from "path";
+import { AuthenticationDialog } from "../../components/Dialog/AuthenticationDialog";
+import { showMessageBox } from "../../utils/messageUtil";
 
 const { readFile } = promises;
 const stylePath = join(__dirname, "styles", "base.css");
@@ -21,13 +29,16 @@ export class AccountDialog extends QDialog {
   qrcode: QLabel = new QLabel();
   viewOnExplorer: QLabel = new QLabel();
   copyBtn: QPushButton = new QPushButton();
+  privateBtn: QPushButton = new QPushButton();
   clipboard = QApplication.clipboard();
+  authenticationDialog = new AuthenticationDialog();
 
   constructor() {
     super();
     this.setWindowTitle("Account Detail");
     this.setWindowIcon(new QIcon(logo));
-    this.setFixedSize(300, 450);
+    this.setMinimumSize(300, 500);
+    this.setWindowFlag(WindowType.WindowContextHelpButtonHint, false);
     const view = new FlexLayout();
     this.setObjectName("AccountDetail");
     this.setLayout(view);
@@ -39,11 +50,25 @@ export class AccountDialog extends QDialog {
     this.copyBtn.addEventListener("clicked", () => {
       this.copyToClipboard();
     });
+
+    this.privateBtn.setIcon(new QIcon(icCopy));
+    this.privateBtn.setText("Copy Private Key");
+    this.privateBtn.setObjectName("SecondaryButton");
+    this.privateBtn.addEventListener("clicked", () => {
+      this.authenticationDialog.exec();
+    });
+
     view.addWidget(this.qrcode);
     view.addWidget(this.viewOnExplorer);
     view.addWidget(this.copyBtn);
+    view.addWidget(this.privateBtn);
     readFile(stylePath, "utf8").then((css) => this.setStyleSheet(css));
     this.setStyleSheet(stylePath);
+
+    this.authenticationDialog.addEventListener("accepted", () => {
+      this.clipboard?.setText(getCurrentAccount().privateKey, 0);
+      showMessageBox("Private key is copied to your Clipboard!");
+    });
   }
 
   async copyToClipboard() {

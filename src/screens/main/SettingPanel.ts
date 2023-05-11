@@ -2,6 +2,7 @@ import {
   CursorShape,
   FlexLayout,
   QIcon,
+  QInputDialog,
   QPushButton,
   QSize,
   QWidget,
@@ -11,11 +12,10 @@ import icImport from "../../../assets/import.png";
 import icSetting from "../../../assets/settings.png";
 import icAddChain from "../../../assets/add_chain.png";
 import icShare from "../../../assets/share.png";
-import { getCurrentNetwork, getSigner } from "../../utils/globalUtil";
-import open from "open";
 import { AccountDialog } from "../account/AccountDialog";
 
 export class SettingPanel extends QWidget {
+  addAccountDialog = new QInputDialog();
   constructor() {
     super();
     this.setObjectName("SettingPanel");
@@ -53,7 +53,7 @@ export class SettingPanel extends QWidget {
     addAccount.setIcon(new QIcon(icAdd));
     addAccount.setIconSize(new QSize(32, 32));
     addAccount.addEventListener("clicked", () => {
-      // getGlobalEvent().emit("onNetworkChanged", this._chain);
+      this.showAddAccountDialog();
     });
     addAccount.setCursor(CursorShape.PointingHandCursor);
     addAccount.setFlat(true);
@@ -89,8 +89,9 @@ export class SettingPanel extends QWidget {
     layout.addWidget(btnSetting);
   }
 
-  async openExplorer() {
-    const address = await getSigner().getAddress();
-    open(`${getCurrentNetwork().blockExplorers}/address/${address}`);
+  async showAddAccountDialog() {
+    // this.addAccountDialog.setLabelText("AccountName:");
+    // this.addAccountDialog.setTextValue("ttttttttttt");
+    this.addAccountDialog.show();
   }
 }
