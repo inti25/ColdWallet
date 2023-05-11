@@ -13,9 +13,9 @@ import icSetting from "../../../assets/settings.png";
 import icAddChain from "../../../assets/add_chain.png";
 import icShare from "../../../assets/share.png";
 import { AccountDialog } from "../account/AccountDialog";
+import { AddAccountDialog } from "../../components/Dialog/AddAccountDialog";
 
 export class SettingPanel extends QWidget {
-  addAccountDialog = new QInputDialog();
   constructor() {
     super();
     this.setObjectName("SettingPanel");
@@ -90,8 +90,7 @@ export class SettingPanel extends QWidget {
   }
 
   async showAddAccountDialog() {
-    // this.addAccountDialog.setLabelText("AccountName:");
-    // this.addAccountDialog.setTextValue("ttttttttttt");
-    this.addAccountDialog.show();
+    const addDialog = new AddAccountDialog();
+    addDialog.exec();
   }
 }

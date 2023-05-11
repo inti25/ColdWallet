@@ -42,7 +42,7 @@ export class AuthenticationDialog extends QDialog {
     this.password.setObjectName("Input");
 
     this.confirmBtn.setText("Unlock");
-    this.confirmBtn.setObjectName("PrimaryButton");
+    this.confirmBtn.setObjectName("SecondaryButton");
     this.confirmBtn.addEventListener("clicked", async () => {
       if (this.password.text().trim() === "") {
         showMessageBox("Authentication Failed!", "Error");

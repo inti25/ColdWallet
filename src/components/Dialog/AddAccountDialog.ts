@@ -15,7 +15,7 @@ import icAdd from "../../../assets/plus.png";
 const { readFile } = promises;
 const stylePath = join(__dirname, "styles", "base.css");
 
-export class AddAccount extends QDialog {
+export class AddAccountDialog extends QDialog {
   lblAccount = new QLabel();
   account = new QLineEdit();
   confirmBtn = new QPushButton();
@@ -36,11 +36,10 @@ export class AddAccount extends QDialog {
     this.setLayout(layout);
     this.lblAccount.setText("Account Name:");
     this.lblAccount.setObjectName("lbl");
-    this.account.setEchoMode(EchoMode.Password);
     this.account.setObjectName("Input");
 
     this.confirmBtn.setText("Add");
-    this.confirmBtn.setObjectName("PrimaryButton");
+    this.confirmBtn.setObjectName("SecondaryButton");
     this.confirmBtn.addEventListener("clicked", async () => {
       if (this.account.text().trim() === "") {
       }
