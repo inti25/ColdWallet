@@ -24,6 +24,8 @@ export class User {
     const code = getPassword();
     if (this.pwd.indexOf("{ENC}") === -1) {
       data.password = "{ENC}" + (await hashPassword(this.pwd));
+    } else {
+      data.password = this.pwd;
     }
     data.wallet = encrypt(this.wallet, code);
     data.accounts = this.accounts.map((acc) => {

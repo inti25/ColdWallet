@@ -14,6 +14,10 @@ import icAddChain from "../../../assets/add_chain.png";
 import icShare from "../../../assets/share.png";
 import { AccountDialog } from "../account/AccountDialog";
 import { AddAccountDialog } from "../../components/Dialog/AddAccountDialog";
+import { getUser, setUser, getGlobalEvent } from "../../utils/globalUtil";
+import { Account, AccountType } from "../../model/Account";
+import { getAccount } from "../../utils/walletUtil";
+import { loadUser } from "../../model/User";
 
 export class SettingPanel extends QWidget {
   constructor() {
@@ -90,7 +94,20 @@ export class SettingPanel extends QWidget {
   }
 
   async showAddAccountDialog() {
-    const addDialog = new AddAccountDialog();
+    const user = getUser();
+    const accountDisplayIndex = user.accounts.length;
+    const addDialog = new AddAccountDialog(`Account ${accountDisplayIndex + 1}`);
+    const accountIndex = user.accounts.filter(acc => {
+      return acc.type === AccountType.INDEX;
+    }).length;
+    let newAccount;
+    addDialog.addEventListener("onFinished", async (accountName)=> {
+      newAccount = new Account(accountName, AccountType.INDEX, accountIndex, getAccount(user.wallet, accountIndex).privateKey, accountDisplayIndex)
+      user.accounts.push(newAccount);
+      await user.save();
+      setUser((await loadUser()) || user);
+      getGlobalEvent().emit("AccountAdded", new Account(accountName, AccountType.INDEX, accountIndex, getAccount(user.wallet, accountIndex).privateKey, accountDisplayIndex));
+    })
     addDialog.exec();
   }
 }

@@ -25,5 +25,14 @@ export class AccountsComboBox extends QComboBox {
     getGlobalEvent().addListener("onAccountSelected", (account) => {
       this.setCurrentIndex(account.displayIndex);
     });
+
+    getGlobalEvent().addListener("AccountAdded", (account) => {
+      this.users = getUser();
+      const wallet = new ethers.Wallet(account.privateKey);
+      this.addItem(
+        new QIcon(generateQPixmapImage(wallet.address)),
+        `   ${account.name}\n   ${wallet.address}`
+      );
+    });
   }
 }

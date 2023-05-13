@@ -70,13 +70,11 @@ export class TokenList extends QWidget {
 
   addListener() {
     getGlobalEvent().addListener("onNetworkChanged", (args) => {
-      console.log("onNetworkChanged");
       this.currentNetwork = args;
       setCurrentNetwork(args);
       this.initData();
     });
     getGlobalEvent().addListener("onAccountSelected", (args) => {
-      console.log("onAccountSelected");
       setCurrentAccount(args);
       for (const item of this.items) {
         item.updateData();
