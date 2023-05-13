@@ -16,7 +16,5 @@ export function showMessageBox(message: string, title: string = "Message") {
 }
 
 export function showErrorBox(message: string) {
-  const errorBox = new QErrorMessage();
-  errorBox.showMessage(message);
-  errorBox.exec();
+  showMessageBox(message, "Error");
 }

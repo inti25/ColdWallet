@@ -18,6 +18,7 @@ import { getUser, setUser, getGlobalEvent } from "../../utils/globalUtil";
 import { Account, AccountType } from "../../model/Account";
 import { getAccount } from "../../utils/walletUtil";
 import { loadUser } from "../../model/User";
+import { ImportAccountDialog } from "../../components/Dialog/ImportAccountDialog";
 
 export class SettingPanel extends QWidget {
   constructor() {
@@ -68,7 +69,7 @@ export class SettingPanel extends QWidget {
     btnImport.setIcon(new QIcon(icImport));
     btnImport.setIconSize(new QSize(32, 32));
     btnImport.addEventListener("clicked", () => {
-      // getGlobalEvent().emit("onNetworkChanged", this._chain);
+      this.showImportAccountDialog();
     });
     btnImport.setCursor(CursorShape.PointingHandCursor);
     btnImport.setFlat(true);
@@ -107,6 +108,23 @@ export class SettingPanel extends QWidget {
       await user.save();
       setUser((await loadUser()) || user);
       getGlobalEvent().emit("AccountAdded", new Account(accountName, AccountType.INDEX, accountIndex, getAccount(user.wallet, accountIndex).privateKey, accountDisplayIndex));
+    })
+    addDialog.exec();
+  }
+
+  async showImportAccountDialog() {
+    const user = getUser();
+    const accountDisplayIndex = user.accounts.length;
+    const addDialog = new ImportAccountDialog(`Account ${accountDisplayIndex + 1}`);
+    const accountIndex = 0;
+    let newAccount;
+    addDialog.addEventListener("onFinished", async (accountName, privateKey)=> {
+      console.log('onFinished', accountName, privateKey)
+      newAccount = new Account(accountName, AccountType.IMPORT, accountIndex, privateKey, accountDisplayIndex)
+      user.accounts.push(newAccount);
+      await user.save();
+      setUser((await loadUser()) || user);
+      getGlobalEvent().emit("AccountAdded", new Account(accountName, AccountType.IMPORT, accountIndex, privateKey, accountDisplayIndex));
     })
     addDialog.exec();
   }
