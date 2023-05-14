@@ -17,6 +17,9 @@
 #PrimaryButton:pressed {
   background-color: #298e46;
 }
+#PrimaryButton:disabled {
+  background-color: #454546;
+}
 #SecondaryButton {
   background-color: #2f80ed;
   border-radius: 6px;
@@ -34,6 +37,10 @@
 }
 #SecondaryButton:pressed {
   background-color: #13458d;
+}
+
+#SecondaryButton:disabled {
+  background-color: #454546;
 }
 
 @import '../components/**/*.scss';
