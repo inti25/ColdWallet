@@ -1,5 +1,4 @@
 import {
-  EchoMode,
   FlexLayout,
   QDialog,
   QDialogSignals,
@@ -7,19 +6,20 @@ import {
   QLabel,
   QLineEdit,
   QPushButton,
-  QSize,
   WindowType,
 } from "@nodegui/nodegui";
 import { promises } from "fs";
 import { join } from "path";
 import icImport from "../../../assets/import.png";
-import { showErrorBox, showMessageBox } from "../../utils/messageUtil";
+import { showMessageBox } from "../../utils/messageUtil";
 import { ethers } from "ethers";
 
 const { readFile } = promises;
 const stylePath = join(__dirname, "styles", "base.css");
 
-export class ImportAccountDialog<Signals extends ImportAccountdialogSignals = ImportAccountdialogSignals> extends QDialog<Signals>{
+export class ImportAccountDialog<
+  Signals extends ImportAccountDialogSignals = ImportAccountDialogSignals
+> extends QDialog<Signals> {
   lblAccount = new QLabel();
   account = new QLineEdit();
   lblPrivateKey = new QLabel();
@@ -57,23 +57,26 @@ export class ImportAccountDialog<Signals extends ImportAccountdialogSignals = Im
     this.confirmBtn.setText("Import");
     this.confirmBtn.setObjectName("SecondaryButton");
     this.confirmBtn.addEventListener("clicked", async () => {
-
-      if (this.account.text().trim() == "") { 
+      if (this.account.text().trim() == "") {
         showMessageBox("Account Name is required");
         return;
       }
-      if (this.privateKey.text().trim() == "") { 
+      if (this.privateKey.text().trim() == "") {
         showMessageBox("Private Key is required");
         return;
       }
 
       try {
         const wallet = new ethers.Wallet(this.privateKey.text());
-        this.emitter2?.emit("onFinished", this.account.text().trim(), this.privateKey.text().trim())
+        this.emitter2?.emit(
+          "onFinished",
+          this.account.text().trim(),
+          this.privateKey.text().trim()
+        );
         this.accept();
       } catch (e) {
         showMessageBox("Private Key is incorrect");
-          return;
+        return;
       }
     });
     layout.addWidget(this.lblAccount);
@@ -84,6 +87,6 @@ export class ImportAccountDialog<Signals extends ImportAccountdialogSignals = Im
   }
 }
 
-export interface ImportAccountdialogSignals extends QDialogSignals {
+export interface ImportAccountDialogSignals extends QDialogSignals {
   onFinished: (accountName: string, privateKey: string) => void;
 }

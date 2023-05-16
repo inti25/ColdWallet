@@ -1,9 +1,4 @@
-import {
-  ButtonRole,
-  QErrorMessage,
-  QMessageBox,
-  QPushButton,
-} from "@nodegui/nodegui";
+import { ButtonRole, QMessageBox, QPushButton } from "@nodegui/nodegui";
 
 export function showMessageBox(message: string, title: string = "Message") {
   const messageBox = new QMessageBox();

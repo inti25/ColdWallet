@@ -1,5 +1,4 @@
 import {
-  EchoMode,
   FlexLayout,
   QDialog,
   QDialogSignals,
@@ -12,12 +11,13 @@ import {
 import { promises } from "fs";
 import { join } from "path";
 import icAdd from "../../../assets/plus.png";
-import { EventWidget } from "@nodegui/nodegui/dist/lib/core/EventWidget";
 
 const { readFile } = promises;
 const stylePath = join(__dirname, "styles", "base.css");
 
-export class AddAccountDialog<Signals extends AddAccountdialogSignals = AddAccountdialogSignals> extends QDialog<Signals>{
+export class AddAccountDialog<
+  Signals extends AddAccountDialogSignals = AddAccountDialogSignals
+> extends QDialog<Signals> {
   lblAccount = new QLabel();
   account = new QLineEdit();
   confirmBtn = new QPushButton();
@@ -48,7 +48,7 @@ export class AddAccountDialog<Signals extends AddAccountdialogSignals = AddAccou
     this.confirmBtn.setObjectName("SecondaryButton");
     this.confirmBtn.addEventListener("clicked", async () => {
       if (this.account.text().trim() !== "") {
-        this.emitter2?.emit("onFinished", this.account.text().trim())
+        this.emitter2?.emit("onFinished", this.account.text().trim());
         this.accept();
       }
     });
@@ -58,6 +58,6 @@ export class AddAccountDialog<Signals extends AddAccountdialogSignals = AddAccou
   }
 }
 
-export interface AddAccountdialogSignals extends QDialogSignals {
+export interface AddAccountDialogSignals extends QDialogSignals {
   onFinished: (accountName: string) => void;
 }
