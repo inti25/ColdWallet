@@ -7,3 +7,22 @@
   width: 'auto';
   height: 'auto';
 }
+
+#ResultDialog {
+  flex-direction: 'column';
+  align-content: 'center';
+  justify-content: 'space-evenly';
+  align-items: 'center';
+  width: 'auto';
+  height: 'auto';
+
+  #Image {
+    width: 200px;
+    height: 200px;
+  }
+
+  #Message {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

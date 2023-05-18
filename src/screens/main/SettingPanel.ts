@@ -97,35 +97,71 @@ export class SettingPanel extends QWidget {
   async showAddAccountDialog() {
     const user = getUser();
     const accountDisplayIndex = user.accounts.length;
-    const addDialog = new AddAccountDialog(`Account ${accountDisplayIndex + 1}`);
-    const accountIndex = user.accounts.filter(acc => {
+    const addDialog = new AddAccountDialog(
+      `Account ${accountDisplayIndex + 1}`
+    );
+    const accountIndex = user.accounts.filter((acc) => {
       return acc.type === AccountType.INDEX;
     }).length;
     let newAccount;
-    addDialog.addEventListener("onFinished", async (accountName)=> {
-      newAccount = new Account(accountName, AccountType.INDEX, accountIndex, getAccount(user.wallet, accountIndex).privateKey, accountDisplayIndex)
+    addDialog.addEventListener("onFinished", async (accountName) => {
+      newAccount = new Account(
+        accountName,
+        AccountType.INDEX,
+        accountIndex,
+        getAccount(user.wallet, accountIndex).privateKey,
+        accountDisplayIndex
+      );
       user.accounts.push(newAccount);
       await user.save();
       setUser((await loadUser()) || user);
-      getGlobalEvent().emit("AccountAdded", new Account(accountName, AccountType.INDEX, accountIndex, getAccount(user.wallet, accountIndex).privateKey, accountDisplayIndex));
-    })
+      getGlobalEvent().emit(
+        "AccountAdded",
+        new Account(
+          accountName,
+          AccountType.INDEX,
+          accountIndex,
+          getAccount(user.wallet, accountIndex).privateKey,
+          accountDisplayIndex
+        )
+      );
+    });
     addDialog.exec();
   }
 
   async showImportAccountDialog() {
     const user = getUser();
     const accountDisplayIndex = user.accounts.length;
-    const addDialog = new ImportAccountDialog(`Account ${accountDisplayIndex + 1}`);
+    const addDialog = new ImportAccountDialog(
+      `Account ${accountDisplayIndex + 1}`
+    );
     const accountIndex = 0;
     let newAccount;
-    addDialog.addEventListener("onFinished", async (accountName, privateKey)=> {
-      console.log('onFinished', accountName, privateKey)
-      newAccount = new Account(accountName, AccountType.IMPORT, accountIndex, privateKey, accountDisplayIndex)
-      user.accounts.push(newAccount);
-      await user.save();
-      setUser((await loadUser()) || user);
-      getGlobalEvent().emit("AccountAdded", new Account(accountName, AccountType.IMPORT, accountIndex, privateKey, accountDisplayIndex));
-    })
+    addDialog.addEventListener(
+      "onFinished",
+      async (accountName, privateKey) => {
+        newAccount = new Account(
+          accountName,
+          AccountType.IMPORT,
+          accountIndex,
+          privateKey,
+          accountDisplayIndex
+        );
+        user.accounts.push(newAccount);
+        await user.save();
+        setUser((await loadUser()) || user);
+        getGlobalEvent().emit(
+          "AccountAdded",
+          new Account(
+            accountName,
+            AccountType.IMPORT,
+            accountIndex,
+            privateKey,
+            accountDisplayIndex
+          )
+        );
+      }
+    );
     addDialog.exec();
   }
 }

@@ -6,7 +6,6 @@ import {
   QPixmap,
   WindowType,
 } from "@nodegui/nodegui";
-import icAdd from "../../../assets/plus.png";
 import icCheck from "../../../assets/check.png";
 import icWarning from "../../../assets/warning.png";
 import { promises } from "fs";
@@ -17,61 +16,61 @@ const { readFile } = promises;
 const stylePath = join(__dirname, "styles", "base.css");
 
 export class ResultDialog extends QDialog {
-  isSuccess: boolean;
-  txnHash: string;
-  messages: string;
-  constructor(isSuccess: boolean, txnHash: string, messages: string) {
+  lblImage = new QLabel();
+  lblMessage = new QLabel();
+  lblReason = new QLabel();
+  lblViewOnExplorer = new QLabel();
+  imgOk = new QPixmap(icCheck);
+  imgFailed = new QPixmap(icWarning);
+  constructor() {
     super();
     readFile(stylePath, "utf8").then((css) => this.setStyleSheet(css));
     this.setStyleSheet(stylePath);
-    this.isSuccess = isSuccess;
-    this.txnHash = txnHash;
-    this.messages = messages;
     this.initView();
   }
 
   initView() {
     this.setWindowTitle("Transaction Result");
-    this.setObjectName("CustomDialog");
-    if (this.isSuccess) {
-      this.setWindowIcon(new QIcon(icCheck));
-    } else {
-      this.setWindowIcon(new QIcon(icWarning));
-    }
     this.setModal(true);
     this.setWindowFlag(WindowType.WindowContextHelpButtonHint, false);
+    this.setObjectName("ResultDialog");
     const view = new FlexLayout();
     this.setLayout(view);
-    const imgOk = new QPixmap(icCheck);
-    // imgOk.load(icCheck);
-    const imgFailed = new QPixmap(icWarning);
-    // imgFailed.load(icWarning);
-    const img = new QLabel();
-    img.setScaledContents(true);
-    img.setFixedSize(280, 280);
-    if (this.isSuccess) {
-      img.setPixmap(imgOk);
+    this.setFixedSize(300, 400);
+    this.lblImage.setScaledContents(true);
+    this.lblImage.setObjectName("Image");
+    this.lblMessage.setObjectName("Message");
+    this.lblViewOnExplorer.setOpenExternalLinks(true);
+    view.addWidget(this.lblImage);
+    view.addWidget(this.lblMessage);
+    view.addWidget(this.lblReason);
+    view.addWidget(this.lblViewOnExplorer);
+  }
+
+  showResult(isSuccess: boolean, txnHash: string, messages: string) {
+    if (isSuccess) {
+      this.setWindowIcon(new QIcon(icCheck));
+      this.lblImage.setPixmap(this.imgOk);
     } else {
-      img.setPixmap(imgFailed);
+      this.setWindowIcon(new QIcon(icWarning));
+      this.lblImage.setPixmap(this.imgFailed);
     }
 
-    const network = getCurrentNetwork();
-    const explorerLink = `${network.blockExplorers}/tx/${this.txnHash}`;
-    const mess = new QLabel();
-    mess.setObjectName("lbl");
-    mess.setText(
-      this.isSuccess
-        ? "Transaction was Submitted"
-        : `Transaction failed! \n ${mess}`
+    this.lblMessage.setText(
+      isSuccess ? "Transaction was Submitted" : `Transaction failed!`
     );
-
-    const lblScan = new QLabel();
-    lblScan.setText(`<a href="${explorerLink}">View on Explorer</a>`);
-    lblScan.setOpenExternalLinks(true);
-    view.addWidget(img);
-    view.addWidget(mess);
-    if (this.txnHash) {
-      view.addWidget(lblScan);
+    this.lblReason.setText(messages);
+    const network = getCurrentNetwork();
+    const explorerLink = `${network.blockExplorers}/tx/${txnHash}`;
+    if (txnHash) {
+      this.lblViewOnExplorer.setText(
+        `<a href="${explorerLink}">View on Explorer</a>`
+      );
+      this.lblViewOnExplorer.setHidden(false);
+    } else {
+      this.lblViewOnExplorer.setHidden(true);
     }
+
+    this.exec();
   }
 }

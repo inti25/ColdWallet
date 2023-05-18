@@ -9,8 +9,10 @@ import {
 import { showMessageBox } from "../utils/messageUtil";
 import { checkPassword, loadUser } from "../model/User";
 import { setPassword, setUser } from "../utils/globalUtil";
+import { ResultDialog } from "../components/Dialog/ResultDialog";
 
 export class Unlock extends BaseScreen {
+  resultDialog = new ResultDialog();
   constructor(props: { nextScreen: string }) {
     super(Unlock.name, props);
   }

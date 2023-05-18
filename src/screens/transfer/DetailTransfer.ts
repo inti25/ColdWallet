@@ -30,11 +30,10 @@ export class DetailTransfer extends BaseScreen {
   cbAccount = new AccountsComboBox();
   toAccount = new QLineEdit();
   amount = new NumberInput();
-  tokenIcon = new QLabel();
-  balance = new QLabel();
   tokenItem: TokenItem;
   moive = new QMovie();
   confirmBtn = new QPushButton();
+  resultDialog = new ResultDialog();
 
   authenticationDialog = new AuthenticationDialog();
   constructor(props: TransferData) {
@@ -139,8 +138,7 @@ export class DetailTransfer extends BaseScreen {
         await transaction.wait();
         this.showResultModal(true, transaction.hash, "");
       } catch (e: any) {
-        console.log("send Failed", e);
-        this.showResultModal(false, transaction.hash, e.message);
+        this.showResultModal(false, transaction?.hash, getTransactionErr(e));
       } finally {
         this.setLoading(false);
       }
@@ -157,11 +155,9 @@ export class DetailTransfer extends BaseScreen {
           toAddr,
           parseUnits(amount, this.tokenItem.token.decimals || 18)
         );
-        console.log("transaction", transaction);
         this.showResultModal(true, transaction.hash, "");
       } catch (e: any) {
-        console.log("send Failed", e);
-        this.showResultModal(false, transaction.hash, e.message);
+        this.showResultModal(false, transaction?.hash, getTransactionErr(e));
       } finally {
         this.setLoading(false);
       }
@@ -169,11 +165,6 @@ export class DetailTransfer extends BaseScreen {
   }
 
   showResultModal(isSuccess: boolean, txnHash: string, message: any) {
-    const dialog = new ResultDialog(
-      isSuccess,
-      txnHash,
-      getTransactionErr(message)
-    );
-    dialog.exec();
+    this.resultDialog.showResult(isSuccess, txnHash, message);
   }
 }

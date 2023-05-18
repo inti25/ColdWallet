@@ -24,15 +24,10 @@ function getStringBetween(str: string, start: string, end: string) {
   // return result[1];
 }
 
-export function getTransactionErr(msg: string) {
-  if (msg.includes("transactionHash")) return "";
-  if (msg.includes('"message"')) {
-    //parse message
-    // let regex = /(?<="message": ")(.*?)(?=",)/
-    // let message = msg.match(regex)
-    // if (message != null && message.length > 0) return message[0]
-    let message = getStringBetween(msg, `"message": "`, `"`);
-    return message;
+export function getTransactionErr(e: any) {
+  if (e && e.reason) {
+    return e.reason;
+  } else {
+    return "Transaction failed, please try again later.";
   }
-  return msg;
 }

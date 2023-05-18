@@ -3,10 +3,8 @@ import fs from "fs";
 export async function saveFile(data: any, filename: string) {
   filename = "data/" + filename + ".json";
   if (!filename) {
-    console.log(`!file name`);
     return;
   }
-  console.log(`Writing deployment info to ${filename}`);
   const content = JSON.stringify(data, null, 2);
   fs.writeFileSync(filename, content, { encoding: "utf-8" });
   return true;

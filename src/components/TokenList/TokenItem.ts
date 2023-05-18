@@ -11,12 +11,13 @@ import {
 import { Token } from "../../model/Token";
 import { getPixmap } from "../../utils/imageUtil";
 import { getProvider, getSigner } from "../../utils/globalUtil";
-import { formatEther, ZeroAddress } from "ethers";
+import { ethers, formatEther, formatUnits, ZeroAddress } from "ethers";
 
 import icSend from "../../../assets/send.png";
 import icRefresh from "../../../assets/refresh.png";
 import { TransferDialog } from "../../screens/transfer/TransferDialog";
 import { formatCurrencyUSD } from "../../utils/common";
+import erc20Abi from "../../abis/erc20.json";
 
 export class TokenItem extends QWidget {
   token: Token;
@@ -52,10 +53,19 @@ export class TokenItem extends QWidget {
 
   async updateData() {
     this.setIcon(await getPixmap(this.token.image || ""));
-    const address = await getSigner().getAddress();
+    const signer = getSigner();
+    const address = await signer.getAddress();
     if (this.token.address === ZeroAddress && address) {
       const bal = await getProvider().getBalance(address);
       this.setBalance(formatEther(bal));
+    } else if (this.token.address != null) {
+      const tokenContract = new ethers.Contract(
+        this.token.address,
+        erc20Abi,
+        signer as any
+      );
+      const bal = await tokenContract.balanceOf(address);
+      this.setBalance(formatUnits(bal, this.token.decimals));
     } else {
       this.setBalance("0.0");
     }
