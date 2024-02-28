@@ -5,6 +5,10 @@
   "author": "inti25 <inti25@proton.me>",
   "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inti25/MyWallet.git"
+  },
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack && qode ./dist/index.js",
@@ -21,6 +25,9 @@
     "ethers": "^6.3.0",
     "file-system-cache": "^2.1.1",
     "generate-avatar": "^1.4.10",
+    "i": "^0.3.7",
+    "near-tic-tac-toe": "^1.0.0",
+    "npm": "^10.4.0",
     "open": "^9.1.0",
     "qrcode": "^1.5.3",
     "utf-8-validate": "^6.0.3"
