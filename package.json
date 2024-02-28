@@ -4,7 +4,6 @@
   "main": "index.js",
   "author": "inti25 <inti25@proton.me>",
   "license": "MIT",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/inti25/MyWallet.git"
