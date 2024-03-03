@@ -1,5 +1,5 @@
 {
-  "name": "nodegui-cold-wallet",
+  "name": "inti25-cold-wallet",
   "version": "1.0.0",
   "main": "index.js",
   "author": "inti25 <inti25@proton.me>",
@@ -25,7 +25,8 @@
     "file-system-cache": "^2.1.1",
     "generate-avatar": "^1.4.10",
     "i": "^0.3.7",
-    "near-tic-tac-toe": "^1.0.0",
+    "inti25-near-example": "^1.0.0",
+    "inti25-tools": "^1.0.0",
     "npm": "^10.4.0",
     "open": "^9.1.0",
     "qrcode": "^1.5.3",

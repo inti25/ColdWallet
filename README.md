@@ -1,5 +1,3 @@
-# nodegui-starter
-
 **Clone and run for a quick way to see NodeGui in action.**
 
 ## To Use
