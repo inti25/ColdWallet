@@ -1,23 +1,5 @@
 [
   {
-    "id": 421613,
-    "name": "Arbitrum Goerli Testnet",
-    "icon": "https://assets.coingecko.com/coins/images/16547/small/photo_2023-03-29_21.47.00.jpeg",
-    "nativeSymbol": "ETH",
-    "nativeImage": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
-    "rpc": "https://goerli-rollup.arbitrum.io/rpc",
-    "blockExplorers": "https://goerli.arbiscan.io/"
-  },
-  {
-    "id": 5,
-    "name": "Goerli test network",
-    "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
-    "nativeSymbol": "ETH",
-    "nativeImage": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
-    "rpc": "https://rpc.ankr.com/eth_goerli",
-    "blockExplorers": "https://goerli.etherscan.io"
-  },
-  {
     "id": 1,
     "name": "Ethereum Mainnet",
     "icon": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
